@@ -1,4 +1,5 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import process from "process";
 import { defineConfig } from "vite";
 
 const nextConfig = withBundleAnalyzer({
