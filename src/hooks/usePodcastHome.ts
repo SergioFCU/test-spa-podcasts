@@ -24,8 +24,9 @@ export const usePodcastHome = () => {
   const _getPodcasts = useCallback(async () => {
     const response = await getPodcasts();
     handleChangePodcasts(response);
+
     return handleSaveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
-  }, []);
+  }, [handleSaveToLocalStorage]);
 
   const handleGetPodcasts = useCallback(async () => {
     try {
@@ -33,14 +34,14 @@ export const usePodcastHome = () => {
         LOCALSTORAGE_PODCASTS_KEY
       );
 
-      gottenDataLocalStorage &&
-      isWithin24Hours(gottenDataLocalStorage.timestamp)
+      return gottenDataLocalStorage &&
+        isWithin24Hours(gottenDataLocalStorage.timestamp)
         ? handleChangePodcasts(gottenDataLocalStorage.data)
         : _getPodcasts();
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [handleLoadFromLocalStorage, isWithin24Hours, _getPodcasts]);
 
   useEffect(() => {
     handleGetPodcasts();

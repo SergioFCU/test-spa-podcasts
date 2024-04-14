@@ -1,0 +1,27 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: "ABCMonumentGrotesk-Light";
+  src:
+    local("ABCMonumentGrotesk-Light"),
+    url("ABCMonumentGrotesk-Light.b2e0bb77.woff") format("woff");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABCMonumentGrotesk-Regular";
+  src:
+    local("ABCMonumentGrotesk-Regular"),
+    url("ABCMonumentGrotesk-Regular.82bccad3.woff") format("woff");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABCMonumentGrotesk-Bold";
+  src:
+    local("ABCMonumentGrotesk-Bold"),
+    url("ABCMonumentGrotesk-Bold.be160e98.woff") format("woff");
+  font-style: normal;
+}

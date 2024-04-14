@@ -1,16 +1,14 @@
-import { useCallback } from "react";
-
 import { ItunesPodcastProps } from "@/api/types";
 import { LocalStoragePodcastProps } from "./types";
 
 export const useLocalStorage = () => {
-  const handleCheckLocalStorage = useCallback((key: string) => {
+  const handleCheckLocalStorage = (key: string) => {
     if (typeof window !== "undefined") {
       return localStorage.getItem(key);
     }
 
     return false;
-  }, []);
+  };
 
   const handleLoadFromLocalStorage = (key: string) => {
     const checkedLocalStorage = handleCheckLocalStorage(key);
@@ -24,19 +22,19 @@ export const useLocalStorage = () => {
     return dataLocalStorage;
   };
 
-  const handleSaveToLocalStorage = useCallback(
-    (key: string, value: ItunesPodcastProps[]) => {
-      if (typeof window !== "undefined") {
-        const dataLocalStorage: LocalStoragePodcastProps = {
-          data: value,
-          timestamp: new Date().toISOString()
-        };
+  const handleSaveToLocalStorage = (
+    key: string,
+    value: ItunesPodcastProps[]
+  ) => {
+    if (typeof window !== "undefined") {
+      const dataLocalStorage: LocalStoragePodcastProps = {
+        data: value,
+        timestamp: new Date().toISOString()
+      };
 
-        return localStorage.setItem(key, JSON.stringify(dataLocalStorage));
-      }
-    },
-    []
-  );
+      return localStorage.setItem(key, JSON.stringify(dataLocalStorage));
+    }
+  };
 
   const isWithin24Hours = (dateToCheck: string) => {
     const currentDate = Date.now();
