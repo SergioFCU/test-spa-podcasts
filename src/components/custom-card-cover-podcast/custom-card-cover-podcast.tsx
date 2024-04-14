@@ -25,7 +25,7 @@ export const CustomCardCoverPodcast = ({
           className="relative z-10 rounded-full border-1 mb-6"
         />
         <div className="w-full border-1 -translate-y-1/2 text-center shadow-xl">
-          <div className="w-full flex flex-col justify-end items-center gap-2 mt-12 p-2">
+          <div className="w-full flex flex-col justify-end items-center gap-2 mt-12 py-2 px-4">
             <p
               className="w-full text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-base hover:cursor-help"
               title={_title}

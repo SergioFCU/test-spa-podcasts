@@ -1,17 +1,11 @@
 {
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "extends": "next/core-web-vitals",
   "plugins": ["prettier"],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2020
-  },
   "rules": {
     "react-hooks/exhaustive-deps": "error",
     "prettier/prettier": [
       "error",
       {
-        "parser": "flow",
         "bracketSpacing": true,
         "htmlWhitespaceSensitivity": "css",
         "insertPragma": false,
