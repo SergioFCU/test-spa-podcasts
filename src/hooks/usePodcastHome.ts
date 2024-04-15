@@ -17,31 +17,39 @@ export const usePodcastHome = () => {
 
   const [podcasts, setPodcasts] = useState<ItunesPodcastProps[]>([]);
 
-  const handleChangePodcasts = (podcasts: ItunesPodcastProps[]) => {
+  const handleChangePodcasts = useCallback((podcasts: ItunesPodcastProps[]) => {
     setPodcasts(podcasts);
-  };
+  }, []);
 
   const _getPodcasts = useCallback(async () => {
     const response = await getPodcasts();
     handleChangePodcasts(response);
 
     return handleSaveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
-  }, [handleSaveToLocalStorage]);
+  }, [handleChangePodcasts, handleSaveToLocalStorage]);
 
   const handleGetPodcasts = useCallback(async () => {
     try {
-      const gottenDataLocalStorage = handleLoadFromLocalStorage(
-        LOCALSTORAGE_PODCASTS_KEY
-      );
+      if (podcasts.length <= 0) {
+        const gottenDataLocalStorage = handleLoadFromLocalStorage(
+          LOCALSTORAGE_PODCASTS_KEY
+        );
 
-      return gottenDataLocalStorage &&
-        isWithin24Hours(gottenDataLocalStorage.timestamp)
-        ? handleChangePodcasts(gottenDataLocalStorage.data)
-        : _getPodcasts();
+        return gottenDataLocalStorage &&
+          isWithin24Hours(gottenDataLocalStorage.timestamp)
+          ? handleChangePodcasts(gottenDataLocalStorage.data)
+          : _getPodcasts();
+      }
     } catch (error) {
       console.error(error);
     }
-  }, [handleLoadFromLocalStorage, isWithin24Hours, _getPodcasts]);
+  }, [
+    podcasts.length,
+    handleLoadFromLocalStorage,
+    isWithin24Hours,
+    handleChangePodcasts,
+    _getPodcasts
+  ]);
 
   useEffect(() => {
     handleGetPodcasts();

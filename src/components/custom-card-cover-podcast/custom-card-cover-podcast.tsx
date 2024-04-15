@@ -11,21 +11,21 @@ export const CustomCardCoverPodcast = ({
   const _author = `Author: ${author}`;
 
   return (
-    <div className="w-full transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:cursor-pointer duration-300">
+    <div className="w-full h-full transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:cursor-pointer duration-300">
       <button
-        className="w-full flex flex-col justify-center items-center"
+        className="w-full h-full flex flex-col justify-center items-center"
         onClick={onClick}
       >
         <Image
+          priority
           src={image}
           alt={_title}
-          width={120}
-          height={120}
-          objectFit="fit"
-          className="relative z-10 rounded-full border-1 mb-6"
+          width={150}
+          height={150}
+          className="relative z-10 rounded-full border-1 object-cover"
         />
-        <div className="w-full border-1 -translate-y-1/2 text-center shadow-xl">
-          <div className="w-full flex flex-col justify-end items-center gap-2 mt-12 py-2 px-4">
+        <div className="w-full h-full -translate-y-1/2 border-1 text-center shadow-xl">
+          <div className="w-full h-full -translate-y-1/2 flex flex-col justify-end items-center gap-2 mt-16 py-2 px-4">
             <p
               className="w-full text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-base hover:cursor-help"
               title={_title}
