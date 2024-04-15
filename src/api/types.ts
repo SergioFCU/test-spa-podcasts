@@ -43,7 +43,7 @@ export interface ResponseItunesPodcastsProps {
       };
       rights: Pick<IndexedProps, "label">;
       title: Pick<IndexedProps, "label">;
-      link: AttributeLinkProps[];
+      link: AttributeLinkProps;
       id: {
         label: Pick<IndexedProps, "label">;
         attributes: Pick<IndexedProps, "im:id">;
