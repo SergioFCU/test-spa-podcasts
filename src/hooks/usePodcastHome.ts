@@ -30,7 +30,7 @@ export const usePodcastHome = () => {
 
   const handleGetPodcasts = useCallback(async () => {
     try {
-      if (podcasts.length <= 0) {
+      if (podcasts && podcasts.length <= 0) {
         const gottenDataLocalStorage = handleLoadFromLocalStorage(
           LOCALSTORAGE_PODCASTS_KEY
         );
@@ -44,7 +44,7 @@ export const usePodcastHome = () => {
       console.error(error);
     }
   }, [
-    podcasts.length,
+    podcasts,
     handleLoadFromLocalStorage,
     isWithin24Hours,
     handleChangePodcasts,
