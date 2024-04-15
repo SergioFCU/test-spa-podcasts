@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+
 import { CustomCardCoverPodcast } from "./custom-card-cover-podcast";
 
 describe("CustomCardCoverPodcast", () => {
@@ -15,6 +16,10 @@ describe("CustomCardCoverPodcast", () => {
 
     // Assert that the component renders without errors
     expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "PODCAST TITLE" })
+    ).toBeInTheDocument();
+
     expect(screen.getByText("PODCAST TITLE")).toBeInTheDocument();
     expect(screen.getByText("Author: Sergio FC")).toBeInTheDocument();
   });
