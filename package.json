@@ -6,8 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "dev:minify": "next dev",
-    "build:minify": "next build",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "test": "jest"
