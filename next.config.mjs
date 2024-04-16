@@ -8,6 +8,7 @@ const nextConfig = withBundleAnalyzer({
 
 export default defineConfig({
   ...nextConfig,
+  images: { unoptimized: true },
   webpack(config, { isServer }) {
     if (!isServer && process.env.NODE_ENV === "production") {
       config.optimization.minimize = true;
