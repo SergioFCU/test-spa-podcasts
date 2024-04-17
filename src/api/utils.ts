@@ -14,7 +14,7 @@ export const formatDuration = (durationInMilliseconds: number): string => {
 
 export const formatDate = (date: string): string => {
   const dateTime = DateTime.fromISO(date);
-  const formattedDate = dateTime.toFormat("mm/dd/yyyy");
+  const formattedDate = dateTime.toFormat("MM/dd/yyyy");
 
   return formattedDate;
 };
