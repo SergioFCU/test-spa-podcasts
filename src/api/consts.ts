@@ -4,3 +4,4 @@ export const ITUNES_GENRE = 1310;
 export const ITUNES_MAX_LIMIT_DETAIL_PODCAST = 20;
 
 export const LOCALSTORAGE_PODCASTS_KEY = "podcasts";
+export const LOCALSTORAGE_PODCAST_DETAIL_KEY = "podcastDetail";

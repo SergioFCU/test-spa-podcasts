@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
+import { useContextPodcasts } from "@/contexts/context-podcasts";
 import { useLocalStorage } from "./useLocalStorage";
 
 import { getPodcasts } from "@/api/actions";
 import { LOCALSTORAGE_PODCASTS_KEY } from "@/api/consts";
-import { SerializedItunesPodcastsProps } from "@/api/types";
 
 export const usePodcastHome = () => {
   const {
@@ -15,21 +15,16 @@ export const usePodcastHome = () => {
     isWithin24Hours
   } = useLocalStorage();
 
-  const [podcasts, setPodcasts] = useState<SerializedItunesPodcastsProps[]>([]);
-
-  const handleChangePodcasts = useCallback(
-    (podcasts: SerializedItunesPodcastsProps[]) => {
-      setPodcasts(podcasts);
-    },
-    []
-  );
+  const { podcasts, setPodcasts } = useContextPodcasts();
 
   const _getPodcasts = useCallback(async () => {
-    const response = await getPodcasts();
-    handleChangePodcasts(response);
+    if (podcasts.length <= 0) {
+      const response = await getPodcasts();
+      setPodcasts(response);
 
-    return handleSaveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
-  }, [handleChangePodcasts, handleSaveToLocalStorage]);
+      return handleSaveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
+    }
+  }, [podcasts, setPodcasts, handleSaveToLocalStorage, getPodcasts]);
 
   const handleGetPodcasts = useCallback(async () => {
     try {
@@ -40,7 +35,7 @@ export const usePodcastHome = () => {
 
         return gottenDataLocalStorage &&
           isWithin24Hours(gottenDataLocalStorage.timestamp)
-          ? handleChangePodcasts(gottenDataLocalStorage.data)
+          ? setPodcasts(gottenDataLocalStorage.data)
           : _getPodcasts();
       }
     } catch (error) {
@@ -50,7 +45,7 @@ export const usePodcastHome = () => {
     podcasts,
     handleLoadFromLocalStorage,
     isWithin24Hours,
-    handleChangePodcasts,
+    setPodcasts,
     _getPodcasts
   ]);
 
@@ -60,6 +55,6 @@ export const usePodcastHome = () => {
 
   return {
     podcasts,
-    handleChangePodcasts
+    setPodcasts
   };
 };
