@@ -1,6 +1,6 @@
-import { ItunesPodcastProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/api/types";
 
 export interface LocalStoragePodcastProps {
-  data: ItunesPodcastProps[];
+  data: SerializedItunesPodcastsProps[];
   timestamp: string;
 }

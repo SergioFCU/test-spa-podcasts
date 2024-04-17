@@ -1,4 +1,7 @@
-import { ItunesPodcastProps, ResponseItunesPodcastsProps } from "@/api/types";
+import {
+  SerializedItunesPodcastsProps,
+  ResponseItunesPodcastsProps
+} from "@/api/types";
 
 export const responseItunesPodcastsMock = {
   feed: {
@@ -320,4 +323,4 @@ export const parsedResponseItunesPodcastsMock = [
     author: 'Rory Farrell & Jamil "Mal" Clay & Studio71',
     id: "1572182022"
   }
-] as ItunesPodcastProps[];
+] as SerializedItunesPodcastsProps[];

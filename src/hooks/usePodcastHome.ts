@@ -6,7 +6,7 @@ import { useLocalStorage } from "./useLocalStorage";
 
 import { getPodcasts } from "@/api/actions";
 import { LOCALSTORAGE_PODCASTS_KEY } from "@/api/consts";
-import { ItunesPodcastProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/api/types";
 
 export const usePodcastHome = () => {
   const {
@@ -15,11 +15,14 @@ export const usePodcastHome = () => {
     isWithin24Hours
   } = useLocalStorage();
 
-  const [podcasts, setPodcasts] = useState<ItunesPodcastProps[]>([]);
+  const [podcasts, setPodcasts] = useState<SerializedItunesPodcastsProps[]>([]);
 
-  const handleChangePodcasts = useCallback((podcasts: ItunesPodcastProps[]) => {
-    setPodcasts(podcasts);
-  }, []);
+  const handleChangePodcasts = useCallback(
+    (podcasts: SerializedItunesPodcastsProps[]) => {
+      setPodcasts(podcasts);
+    },
+    []
+  );
 
   const _getPodcasts = useCallback(async () => {
     const response = await getPodcasts();

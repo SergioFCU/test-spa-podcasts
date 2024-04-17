@@ -1,6 +1,7 @@
-import { ItunesPodcastProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/api/types";
 import { MouseEventHandler } from "react";
 
-export interface CustomCardCoverPodcastProps extends ItunesPodcastProps {
+export interface CustomCardCoverPodcastProps
+  extends SerializedItunesPodcastsProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }

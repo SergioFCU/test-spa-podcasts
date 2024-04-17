@@ -1,4 +1,6 @@
-interface IndexedProps {
+import { Url } from "url";
+
+interface IndexedPodcastsProps {
   href?: string;
   rel?: string;
   type?: string;
@@ -12,60 +14,137 @@ interface IndexedProps {
 }
 
 interface AttributeLinkProps {
-  attributes: Pick<IndexedProps, "href" | "rel" | "type">;
+  attributes: Pick<IndexedPodcastsProps, "href" | "rel" | "type">;
 }
 
 export interface ResponseItunesPodcastsProps {
   feed: {
     author: {
-      name: Pick<IndexedProps, "label">;
-      uri: Pick<IndexedProps, "label">;
+      name: Pick<IndexedPodcastsProps, "label">;
+      uri: Pick<IndexedPodcastsProps, "label">;
     };
 
-    icon: Pick<IndexedProps, "label">;
+    icon: Pick<IndexedPodcastsProps, "label">;
     link: AttributeLinkProps[];
-    rights: Pick<IndexedProps, "label">;
-    title: Pick<IndexedProps, "label">;
-    updated: Pick<IndexedProps, "label">;
+    rights: Pick<IndexedPodcastsProps, "label">;
+    title: Pick<IndexedPodcastsProps, "label">;
+    updated: Pick<IndexedPodcastsProps, "label">;
     entry: {
-      "im:name": Pick<IndexedProps, "label">;
+      "im:name": Pick<IndexedPodcastsProps, "label">;
       "im:image": {
-        label: Pick<IndexedProps, "label">;
-        attributes: Pick<IndexedProps, "height">;
+        label: Pick<IndexedPodcastsProps, "label">;
+        attributes: Pick<IndexedPodcastsProps, "height">;
       }[];
-      summary: Pick<IndexedProps, "label">;
+      summary: Pick<IndexedPodcastsProps, "label">;
       "im:price": {
-        label: Pick<IndexedProps, "label">;
-        attributes: Pick<IndexedProps, "amount" | "currency">;
+        label: Pick<IndexedPodcastsProps, "label">;
+        attributes: Pick<IndexedPodcastsProps, "amount" | "currency">;
       };
       "im:contentType": {
-        attributes: Pick<IndexedProps, "term" | "label">;
+        attributes: Pick<IndexedPodcastsProps, "term" | "label">;
       };
-      rights: Pick<IndexedProps, "label">;
-      title: Pick<IndexedProps, "label">;
+      rights: Pick<IndexedPodcastsProps, "label">;
+      title: Pick<IndexedPodcastsProps, "label">;
       link: AttributeLinkProps;
       id: {
-        label: Pick<IndexedProps, "label">;
-        attributes: Pick<IndexedProps, "im:id">;
+        label: Pick<IndexedPodcastsProps, "label">;
+        attributes: Pick<IndexedPodcastsProps, "im:id">;
       };
       "im:artist": {
-        label: Pick<IndexedProps, "label">;
-        attributes: Pick<IndexedProps, "href" | "label">;
+        label: Pick<IndexedPodcastsProps, "label">;
+        attributes: Pick<IndexedPodcastsProps, "href" | "label">;
       };
       category: {
-        attributes: Pick<IndexedProps, "im:id" | "term" | "scheme" | "label">;
+        attributes: Pick<
+          IndexedPodcastsProps,
+          "im:id" | "term" | "scheme" | "label"
+        >;
       };
       "im:releaseDate": {
-        label: Pick<IndexedProps, "label">;
-        attributes: Pick<IndexedProps, "label">;
+        label: Pick<IndexedPodcastsProps, "label">;
+        attributes: Pick<IndexedPodcastsProps, "label">;
       };
     }[];
   };
 }
 
-export interface ItunesPodcastProps {
+export interface SerializedItunesPodcastsProps {
   title: string;
   image: string;
   author: string;
   id: string;
+  summary?: string;
+}
+
+interface IndexedDetailPodcastProps {
+  collectionId: number;
+  trackId: number;
+  collectionName: string;
+  trackName: string;
+  artistViewUrl: Url;
+  collectionViewUrl: Url;
+  feedUrl: Url;
+  trackViewUrl: Url;
+  artworkUrl60: Url;
+  releaseDate: string;
+  trackTimeMillis: number;
+  country: string;
+  contentAdvisoryRating: string;
+  artworkUrl600: Url;
+  genres: string[];
+}
+
+interface ResponseItunesDetailPodcastWrapperTypeProps
+  extends IndexedDetailPodcastProps {
+  wrapperType: string;
+  kind: string;
+  artistId: number;
+  artistName: string;
+  collectionCensoredName: string;
+  trackCensoredName: string;
+  artworkUrl30: Url;
+  artworkUrl100: Url;
+  collectionPrice: number;
+  trackPrice: number;
+  collectionHdPrice: number;
+  collectionExplicitness: string;
+  trackExplicitness: string;
+  trackCount: number;
+  currency: string;
+  primaryGenreName: string;
+  genreIds: string[];
+}
+
+interface ResponseItunesDetailPodcastCollectionViewUrlProps
+  extends IndexedDetailPodcastProps {
+  previewUrl: Url;
+  episodeUrl: Url;
+  shortDescription: string;
+  artistIds: number[];
+  closedCaptioning: string;
+  artworkUrl160: Url;
+  episodeFileExtension: string;
+  episodeContentType: string;
+  episodeGuid: string;
+  description: string;
+}
+
+export interface ResponseItunesDetailPodcastProps {
+  resultCount: number;
+  results: (
+    | ResponseItunesDetailPodcastWrapperTypeProps
+    | ResponseItunesDetailPodcastCollectionViewUrlProps
+  )[];
+}
+
+export interface SerializedItunesDetailPodcastProps {
+  coverImage?: Url;
+  resultCount: number;
+  results: {
+    title: string;
+    duration: string;
+    date: string;
+    episodeUrl: Url;
+    description: string;
+  }[];
 }

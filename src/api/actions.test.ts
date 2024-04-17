@@ -1,6 +1,6 @@
 import { responseItunesPodcastsMock } from "@/test/mocks";
 import { getPodcasts } from "./actions";
-import { ITUNES_GENRE, ITUNES_MAX_LIMIT, ITUNES_URI } from "./consts";
+import { ITUNES_GENRE, ITUNES_MAX_LIMIT_PODCASTS, ITUNES_URI } from "./consts";
 
 const mockResponse = {
   json: jest.fn().mockResolvedValue(responseItunesPodcastsMock)
@@ -14,7 +14,7 @@ describe("getPodcasts", () => {
     await getPodcasts();
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `${ITUNES_URI}us/rss/toppodcasts/limit=${ITUNES_MAX_LIMIT}/genre=${ITUNES_GENRE}/json`
+      `${ITUNES_URI}us/rss/toppodcasts/limit=${ITUNES_MAX_LIMIT_PODCASTS}/genre=${ITUNES_GENRE}/json`
     );
   });
 });

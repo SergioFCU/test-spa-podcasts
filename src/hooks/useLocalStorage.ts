@@ -1,4 +1,4 @@
-import { ItunesPodcastProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/api/types";
 import { LocalStoragePodcastProps } from "./types";
 
 export const useLocalStorage = () => {
@@ -24,7 +24,7 @@ export const useLocalStorage = () => {
 
   const handleSaveToLocalStorage = (
     key: string,
-    value: ItunesPodcastProps[]
+    value: SerializedItunesPodcastsProps[]
   ) => {
     if (typeof window !== "undefined") {
       const dataLocalStorage: LocalStoragePodcastProps = {
