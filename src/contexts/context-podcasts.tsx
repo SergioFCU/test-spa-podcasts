@@ -27,7 +27,8 @@ const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
       duration: "",
       date: "",
       episodeUrl: "",
-      description: ""
+      description: "",
+      trackId: 0
     }
   ]
 };

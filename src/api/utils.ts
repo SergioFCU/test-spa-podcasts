@@ -44,7 +44,8 @@ export const parseItunesPodcastDetailData = (
     duration: formatDuration(item.trackTimeMillis),
     date: formatDate(item.releaseDate),
     episodeUrl: "episodeUrl" in item ? item.episodeUrl : "",
-    description: "description" in item ? item.description : ""
+    description: "description" in item ? item.description : "",
+    trackId: item.trackId
   }));
 
   return {

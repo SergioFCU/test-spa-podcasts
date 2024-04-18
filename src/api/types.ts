@@ -149,5 +149,6 @@ export interface SerializedItunesPodcastDetailsProps
     date: string;
     episodeUrl: string;
     description: string;
+    trackId: number;
   }[];
 }
