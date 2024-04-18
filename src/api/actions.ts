@@ -26,7 +26,6 @@ export const getPodcastDetails = async (id: string) => {
   );
   const data: ResponseItunesDetailPodcastProps = await response.json();
   const parsedData = parseItunesPodcastDetailData(data, id);
-  console.log(parsedData);
 
   return parsedData;
 };
