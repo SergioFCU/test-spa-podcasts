@@ -2,8 +2,10 @@
 
 import { CustomCardCoverPodcast } from "@/components/custom-card-cover-podcast/custom-card-cover-podcast";
 import { usePodcastHome } from "@/hooks/usePodcastHome";
+import { useRouter } from "next/navigation";
 
 export const PodcastHome = () => {
+  const router = useRouter();
   const { podcasts } = usePodcastHome();
 
   return (
@@ -16,6 +18,7 @@ export const PodcastHome = () => {
             title={podcast.title}
             author={podcast.author}
             image={podcast.image}
+            onClick={() => router.push(`/podcast/${podcast.id}`)}
           />
         ))}
       </div>

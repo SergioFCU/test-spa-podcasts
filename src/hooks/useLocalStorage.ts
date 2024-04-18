@@ -1,4 +1,4 @@
-import { ItunesPodcastProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/api/types";
 import { LocalStoragePodcastProps } from "./types";
 
 export const useLocalStorage = () => {
@@ -16,18 +16,17 @@ export const useLocalStorage = () => {
       return false;
     }
 
-    const dataLocalStorage: LocalStoragePodcastProps =
-      JSON.parse(checkedLocalStorage);
+    const dataLocalStorage = JSON.parse(checkedLocalStorage);
 
-    return dataLocalStorage;
+    return dataLocalStorage as LocalStoragePodcastProps;
   };
 
   const handleSaveToLocalStorage = (
     key: string,
-    value: ItunesPodcastProps[]
+    value: LocalStoragePodcastProps["data"]
   ) => {
     if (typeof window !== "undefined") {
-      const dataLocalStorage: LocalStoragePodcastProps = {
+      const dataLocalStorage = {
         data: value,
         timestamp: new Date().toISOString()
       };

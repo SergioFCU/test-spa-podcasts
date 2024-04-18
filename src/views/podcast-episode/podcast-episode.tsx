@@ -1,4 +1,4 @@
-import { PodcastEpisodeProps } from "./types";
+import { PodcastEpisodeProps } from "../types";
 
 export const PodcastEpisode = ({ episodeId }: PodcastEpisodeProps) => {
   return (

@@ -7,7 +7,7 @@ export const CustomCardCoverPodcast = ({
   author,
   onClick
 }: CustomCardCoverPodcastProps) => {
-  const _title = title.toUpperCase();
+  const _title = title?.toUpperCase();
   const _author = `Author: ${author}`;
 
   return (

@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 
 import { PodcastHome } from "./podcast-home";
 
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn()
+}));
+
 jest.mock("../../hooks/usePodcastHome.ts", () => ({
   usePodcastHome: jest.fn().mockReturnValue({
     podcasts: [
