@@ -1,3 +1,4 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Url } from "url";
 
 interface IndexedPodcastsProps {
@@ -137,9 +138,10 @@ export interface ResponseItunesDetailPodcastProps {
   )[];
 }
 
-export interface SerializedItunesPodcastDetailsProps {
+export interface SerializedItunesPodcastDetailsProps
+  extends SerializedItunesPodcastsProps {
   id: string;
-  coverImage?: string;
+  coverImage?: string | StaticImport;
   resultCount: number;
   results: {
     title: string;

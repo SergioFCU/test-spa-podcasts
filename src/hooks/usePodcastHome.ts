@@ -30,14 +30,13 @@ export const usePodcastHome = () => {
   const fetchPodcasts: () => Promise<void> = useCallback(async () => {
     try {
       if (podcasts.length <= 0) {
-        const gottenDataLocalStorage = handleLoadFromLocalStorage(
+        const dataLocalStorage = handleLoadFromLocalStorage(
           LOCALSTORAGE_PODCASTS_KEY
         );
 
-        return gottenDataLocalStorage &&
-          isWithin24Hours(gottenDataLocalStorage.timestamp)
+        return dataLocalStorage && isWithin24Hours(dataLocalStorage.timestamp)
           ? setPodcasts(
-              gottenDataLocalStorage.data as SerializedItunesPodcastsProps[]
+              dataLocalStorage.data as SerializedItunesPodcastsProps[]
             )
           : _getPodcasts();
       }
@@ -46,9 +45,9 @@ export const usePodcastHome = () => {
     }
   }, [
     podcasts,
+    setPodcasts,
     handleLoadFromLocalStorage,
     isWithin24Hours,
-    setPodcasts,
     _getPodcasts
   ]);
 

@@ -17,18 +17,22 @@ export const usePodcastDetails = (podcastId: string) => {
     isWithin24Hours
   } = useLocalStorage();
 
-  const { podcastDetails, setPodcastDetails } = useContextPodcasts();
+  const { podcasts, podcastDetails, setPodcastDetails } = useContextPodcasts();
 
   const _getPodcastDetails: () => Promise<void> = useCallback(async () => {
     if (podcastDetails.id !== podcastId) {
       const response = (await getPodcastDetails(
         podcastId
       )) as SerializedItunesPodcastDetailsProps;
-      setPodcastDetails(response);
+
+      const foundPodcast = podcasts.find((podcast) => podcast.id === podcastId);
+      console.log(podcasts);
+      console.log(foundPodcast);
+      setPodcastDetails({ ...response, ...foundPodcast });
 
       return handleSaveToLocalStorage(
         `${LOCALSTORAGE_PODCAST_DETAILS_KEY}-${podcastId}`,
-        response
+        { ...response, ...foundPodcast }
       );
     }
   }, [

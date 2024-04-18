@@ -14,6 +14,10 @@ import {
 } from "@/api/types";
 
 const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
+  author: "",
+  title: "",
+  summary: "",
+  image: "",
   coverImage: "",
   id: "",
   resultCount: 0,
