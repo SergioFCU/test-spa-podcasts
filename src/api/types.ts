@@ -82,17 +82,22 @@ interface IndexedDetailPodcastProps {
   trackId: number;
   collectionName: string;
   trackName: string;
-  artistViewUrl: Url;
-  collectionViewUrl: Url;
-  feedUrl: Url;
-  trackViewUrl: Url;
-  artworkUrl60: Url;
+  artistViewUrl: string;
+  collectionViewUrl: string;
+  feedUrl: string;
+  trackViewUrl: string;
+  artworkUrl60: string;
   releaseDate: string;
   trackTimeMillis: number;
   country: string;
   contentAdvisoryRating: string;
-  artworkUrl600: Url;
-  genres: string[];
+  artworkUrl600: string;
+  genres:
+    | {
+        name: string;
+        id: string;
+      }[]
+    | string[];
   wrapperType: string;
 }
 
@@ -103,8 +108,8 @@ interface ResponseItunesDetailPodcastWrapperTypeProps
   artistName: string;
   collectionCensoredName: string;
   trackCensoredName: string;
-  artworkUrl30: Url;
-  artworkUrl100: Url;
+  artworkUrl30: string;
+  artworkUrl100: string;
   collectionPrice: number;
   trackPrice: number;
   collectionHdPrice: number;
@@ -113,17 +118,17 @@ interface ResponseItunesDetailPodcastWrapperTypeProps
   trackCount: number;
   currency: string;
   primaryGenreName: string;
-  genreIds: string[];
+  genreIds?: string[];
 }
 
 interface ResponseItunesDetailPodcastCollectionViewUrlProps
   extends IndexedDetailPodcastProps {
-  previewUrl: Url;
-  episodeUrl: Url;
+  previewUrl: string;
+  episodeUrl: string;
   shortDescription: string;
   artistIds: number[];
   closedCaptioning: string;
-  artworkUrl160: Url;
+  artworkUrl160: string;
   episodeFileExtension: string;
   episodeContentType: string;
   episodeGuid: string;

@@ -11,7 +11,7 @@ export const CustomSidebarPodcast = ({
   <div className="flex flex-col">
     <div className="w-full flex justify-center">
       <Image
-        src={image ?? ""}
+        src={image}
         alt="sidebar-image"
         width={150}
         height={150}

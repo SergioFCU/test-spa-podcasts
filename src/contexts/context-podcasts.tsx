@@ -13,7 +13,7 @@ import {
   SerializedItunesPodcastDetailsProps
 } from "@/api/types";
 
-const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
+export const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
   author: "",
   title: "",
   summary: "",
