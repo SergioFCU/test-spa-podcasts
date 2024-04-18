@@ -8,25 +8,53 @@ import {
   useState
 } from "react";
 
-import { SerializedItunesPodcastsProps } from "@/api/types";
+import {
+  SerializedItunesPodcastsProps,
+  SerializedItunesPodcastDetailsProps
+} from "@/api/types";
+
+const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
+  coverImage: "",
+  id: "",
+  resultCount: 0,
+  results: [
+    {
+      title: "",
+      duration: "",
+      date: "",
+      episodeUrl: "",
+      description: ""
+    }
+  ]
+};
 
 const ContextPodcasts = createContext<{
   podcasts: SerializedItunesPodcastsProps[];
   setPodcasts: (val: SetStateAction<SerializedItunesPodcastsProps[]>) => void;
+  podcastDetails: SerializedItunesPodcastDetailsProps;
+  setPodcastDetails: (
+    val: SetStateAction<SerializedItunesPodcastDetailsProps>
+  ) => void;
 }>({
   podcasts: [],
-  setPodcasts: () => {}
+  setPodcasts: () => {},
+  podcastDetails: valueDefaultPodcastDetails,
+  setPodcastDetails: () => {}
 });
 
 export const PodcastsProvider = ({ children }: any) => {
   const [podcasts, setPodcasts] = useState<SerializedItunesPodcastsProps[]>([]);
+  const [podcastDetails, setPodcastDetails] =
+    useState<SerializedItunesPodcastDetailsProps>(valueDefaultPodcastDetails);
 
   const values = useMemo(
     () => ({
       podcasts,
-      setPodcasts
+      setPodcasts,
+      podcastDetails,
+      setPodcastDetails
     }),
-    [podcasts, setPodcasts]
+    [podcasts, setPodcasts, podcastDetails, setPodcastDetails]
   );
 
   return (

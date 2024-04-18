@@ -2,7 +2,7 @@ import { Duration, DateTime } from "luxon";
 import {
   ResponseItunesDetailPodcastProps,
   ResponseItunesPodcastsProps,
-  SerializedItunesDetailPodcastProps,
+  SerializedItunesPodcastDetailsProps,
   SerializedItunesPodcastsProps
 } from "./types";
 
@@ -32,10 +32,11 @@ export const parseItunesPodcastsData = (data: ResponseItunesPodcastsProps) => {
 };
 
 export const parseItunesPodcastDetailData = (
-  data: ResponseItunesDetailPodcastProps
+  data: ResponseItunesDetailPodcastProps,
+  id: string
 ) => {
   const foundPodcastWrapperType = data.results.find(
-    (item) => "artistId" in item
+    (item) => "artistName" in item
   );
 
   const parsedItunesPodcastDetailData = data.results.map((item) => ({
@@ -47,8 +48,9 @@ export const parseItunesPodcastDetailData = (
   }));
 
   return {
+    id,
     coverImage: foundPodcastWrapperType?.artworkUrl600,
     resultCount: data.resultCount,
     results: parsedItunesPodcastDetailData
-  } as SerializedItunesDetailPodcastProps;
+  } as SerializedItunesPodcastDetailsProps | null;
 };

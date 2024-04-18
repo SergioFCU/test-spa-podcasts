@@ -20,12 +20,13 @@ export const getPodcasts = async () => {
   return parsedData;
 };
 
-export const getDetailPodcast = async (id: string) => {
+export const getPodcastDetails = async (id: string) => {
   const response = await fetch(
     `${ITUNES_URI}lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=${ITUNES_MAX_LIMIT_DETAIL_PODCAST}/json`
   );
   const data: ResponseItunesDetailPodcastProps = await response.json();
-  const parsedData = parseItunesPodcastDetailData(data);
+  const parsedData = parseItunesPodcastDetailData(data, id);
+  console.log(parsedData);
 
   return parsedData;
 };

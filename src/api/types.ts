@@ -92,11 +92,11 @@ interface IndexedDetailPodcastProps {
   contentAdvisoryRating: string;
   artworkUrl600: Url;
   genres: string[];
+  wrapperType: string;
 }
 
 interface ResponseItunesDetailPodcastWrapperTypeProps
   extends IndexedDetailPodcastProps {
-  wrapperType: string;
   kind: string;
   artistId: number;
   artistName: string;
@@ -137,14 +137,15 @@ export interface ResponseItunesDetailPodcastProps {
   )[];
 }
 
-export interface SerializedItunesDetailPodcastProps {
-  coverImage?: Url;
+export interface SerializedItunesPodcastDetailsProps {
+  id: string;
+  coverImage?: string;
   resultCount: number;
   results: {
     title: string;
     duration: string;
     date: string;
-    episodeUrl: Url;
+    episodeUrl: string;
     description: string;
   }[];
 }
