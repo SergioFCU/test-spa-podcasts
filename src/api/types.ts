@@ -143,17 +143,19 @@ export interface ResponseItunesDetailPodcastProps {
   )[];
 }
 
+export interface IndexedResultsPodcastDetailsProps {
+  title: string;
+  duration: string;
+  date: string;
+  episodeUrl: string;
+  description: string;
+  trackId: number;
+}
+
 export interface SerializedItunesPodcastDetailsProps
   extends SerializedItunesPodcastsProps {
   id: string;
   coverImage?: string | StaticImport;
   resultCount: number;
-  results: {
-    title: string;
-    duration: string;
-    date: string;
-    episodeUrl: string;
-    description: string;
-    trackId: number;
-  }[];
+  results: IndexedResultsPodcastDetailsProps[];
 }

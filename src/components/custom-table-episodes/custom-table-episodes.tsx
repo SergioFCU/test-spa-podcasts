@@ -6,7 +6,7 @@ export const CustomTableEpisodes = ({
   podcastDetails,
   podcastId
 }: CustomTableEpisodesProps) => (
-  <div className="w-full h-min flex flex-col border-1 py-2 shadow-lg overflow-auto">
+  <div className="w-full h-min flex flex-col border-1 py-2 shadow-lg xl:overflow-auto">
     <table className="divide-y divide-gray-200">
       <thead>
         <tr>
@@ -24,17 +24,18 @@ export const CustomTableEpisodes = ({
       <tbody className="bg-white divide-y divide-gray-200">
         {podcastDetails.results.map((item, index) => (
           <tr key={index as number} className="even:bg-gray-100">
-            <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-base text-gray-900 hover:underline">
-                <Link href={`/podcast/${podcastId}/episode/${item.trackId}`}>
-                  {item.title}
-                </Link>
-              </div>
+            <td className="px-6 py-4 w-full">
+              <Link
+                href={`/podcast/${podcastId}/episode/${item.trackId}`}
+                className="text-base text-gray-900 hover:underline"
+              >
+                {item.title}
+              </Link>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4">
               <div className="text-base text-gray-900">{item.date}</div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4">
               <div className="text-base text-gray-900">{item.duration}</div>
             </td>
           </tr>

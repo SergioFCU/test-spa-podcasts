@@ -2,7 +2,7 @@ import Image from "next/image";
 import { CustomCardCoverPodcastProps } from "../types";
 
 export const CustomCardCoverPodcast = ({
-  image,
+  image = "",
   title,
   author,
   onClick

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CustomSidebarPodcastProps } from "../types";
 
 export const CustomSidebarPodcast = ({
-  image,
+  image = "",
   title,
   author,
   description

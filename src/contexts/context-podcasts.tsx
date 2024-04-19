@@ -10,8 +10,19 @@ import {
 
 import {
   SerializedItunesPodcastsProps,
-  SerializedItunesPodcastDetailsProps
+  SerializedItunesPodcastDetailsProps,
+  IndexedResultsPodcastDetailsProps
 } from "@/api/types";
+
+export const valueDefaultResultsPodcastDetails: IndexedResultsPodcastDetailsProps =
+  {
+    title: "",
+    duration: "",
+    date: "",
+    episodeUrl: "",
+    description: "",
+    trackId: 0
+  };
 
 export const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
   author: "",
@@ -21,16 +32,7 @@ export const valueDefaultPodcastDetails: SerializedItunesPodcastDetailsProps = {
   coverImage: "",
   id: "",
   resultCount: 0,
-  results: [
-    {
-      title: "",
-      duration: "",
-      date: "",
-      episodeUrl: "",
-      description: "",
-      trackId: 0
-    }
-  ]
+  results: [valueDefaultResultsPodcastDetails]
 };
 
 const ContextPodcasts = createContext<{
@@ -40,26 +42,45 @@ const ContextPodcasts = createContext<{
   setPodcastDetails: (
     val: SetStateAction<SerializedItunesPodcastDetailsProps>
   ) => void;
+  podcastEpisode: IndexedResultsPodcastDetailsProps;
+  setPodcastEpisode: (
+    val: SetStateAction<IndexedResultsPodcastDetailsProps>
+  ) => void;
 }>({
   podcasts: [],
   setPodcasts: () => {},
   podcastDetails: valueDefaultPodcastDetails,
-  setPodcastDetails: () => {}
+  setPodcastDetails: () => {},
+  podcastEpisode: valueDefaultResultsPodcastDetails,
+  setPodcastEpisode: () => {}
 });
 
 export const PodcastsProvider = ({ children }: any) => {
   const [podcasts, setPodcasts] = useState<SerializedItunesPodcastsProps[]>([]);
   const [podcastDetails, setPodcastDetails] =
     useState<SerializedItunesPodcastDetailsProps>(valueDefaultPodcastDetails);
+  const [podcastEpisode, setPodcastEpisode] =
+    useState<IndexedResultsPodcastDetailsProps>(
+      valueDefaultResultsPodcastDetails
+    );
 
   const values = useMemo(
     () => ({
       podcasts,
       setPodcasts,
       podcastDetails,
-      setPodcastDetails
+      setPodcastDetails,
+      podcastEpisode,
+      setPodcastEpisode
     }),
-    [podcasts, setPodcasts, podcastDetails, setPodcastDetails]
+    [
+      podcasts,
+      setPodcasts,
+      podcastDetails,
+      setPodcastDetails,
+      podcastEpisode,
+      setPodcastEpisode
+    ]
   );
 
   return (

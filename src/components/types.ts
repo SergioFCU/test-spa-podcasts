@@ -1,8 +1,9 @@
+import { MouseEventHandler } from "react";
+
 import {
   SerializedItunesPodcastDetailsProps,
   SerializedItunesPodcastsProps
 } from "@/api/types";
-import { MouseEventHandler } from "react";
 
 export interface CustomCardCoverPodcastProps
   extends SerializedItunesPodcastsProps {
@@ -24,4 +25,9 @@ export interface CustomTableEpisodesProps {
   thList: string[];
   podcastDetails: SerializedItunesPodcastDetailsProps;
   podcastId: string;
+}
+
+export interface CustomLayoutProps {
+  podcastDetails: SerializedItunesPodcastDetailsProps;
+  children: React.ReactNode;
 }
