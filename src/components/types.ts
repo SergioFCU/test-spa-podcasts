@@ -10,13 +10,6 @@ export interface CustomCardCoverPodcastProps
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export interface CustomSidebarPodcastProps {
-  image: string;
-  title: string;
-  author: string;
-  description?: string;
-}
-
 export interface CustomCountEpisodesProps {
   count: number;
 }
@@ -30,4 +23,9 @@ export interface CustomTableEpisodesProps {
 export interface CustomLayoutProps {
   podcastDetails: SerializedItunesPodcastDetailsProps;
   children: React.ReactNode;
+}
+
+export interface CustomRichTextProps {
+  text: string;
+  className?: string;
 }
