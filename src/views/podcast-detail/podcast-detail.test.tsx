@@ -22,11 +22,4 @@ describe("PodcastDetail", () => {
     expect(screen.getByText("Date")).toBeInTheDocument();
     expect(screen.getByText("Duration")).toBeInTheDocument();
   });
-
-  it("renders the loading state when podcastDetails is not available", () => {
-    render(<PodcastDetail podcastId="1" />);
-
-    const elements = screen.queryAllByText("Loading...");
-    expect(elements.length).toBeGreaterThanOrEqual(1);
-  });
 });

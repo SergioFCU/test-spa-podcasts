@@ -24,9 +24,7 @@ export const PodcastDetail = ({ podcastId }: PodcastDetailProps) => {
           />
         </CustomLayout>
       ) : (
-        <div className="w-full h-full flex justify-end">
-          <p>Loading...</p>
-        </div>
+        <></>
       )}
     </CustomHeaderPodcast>
   );

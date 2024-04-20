@@ -13,6 +13,7 @@ export const usePodcastEpisode = (podcastId: string, episodeId: number) => {
 
   const findPodcastEpisode = useCallback(() => {
     const { results } = podcastDetails;
+    console.log(results);
 
     const foundPodcastEpisode = results.find(
       (elem) => String(elem.trackId) === String(episodeId)
