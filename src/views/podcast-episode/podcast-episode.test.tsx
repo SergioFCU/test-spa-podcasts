@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { serializedPodcastDetailsMock } from "@/test/mocks";
+import { serializedPodcastDetailsMock } from "@/common/mocks";
 import { PodcastEpisode } from "./podcast-episode";
 
 const epidoseMock = serializedPodcastDetailsMock.results[0];

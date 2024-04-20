@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import { PodcastDetail } from "./podcast-detail";
 
-import { serializedPodcastDetailsMock } from "@/test/mocks";
+import { serializedPodcastDetailsMock } from "@/common/mocks";
 
 jest.mock("../../hooks/usePodcastDetails", () => ({
   usePodcastDetails: () => ({

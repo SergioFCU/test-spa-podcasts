@@ -3,7 +3,7 @@ import { MouseEventHandler } from "react";
 import {
   SerializedItunesPodcastDetailsProps,
   SerializedItunesPodcastsProps
-} from "@/api/types";
+} from "@/common/types";
 
 export interface CustomCardCoverPodcastProps
   extends SerializedItunesPodcastsProps {

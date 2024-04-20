@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
 import { useContextPodcasts } from "@/contexts/context-podcasts";
 import { usePodcastDetails } from "./usePodcastDetails";
 
-import { IndexedResultsPodcastDetailsProps } from "@/api/types";
+import { IndexedResultsPodcastDetailsProps } from "@/common/types";
 
 export const usePodcastEpisode = (podcastId: string, episodeId: number) => {
   const { podcastDetails } = usePodcastDetails(podcastId);

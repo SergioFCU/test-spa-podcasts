@@ -1,7 +1,7 @@
 import {
   SerializedItunesPodcastsProps,
   SerializedItunesPodcastDetailsProps
-} from "@/api/types";
+} from "@/common/types";
 
 export interface LocalStoragePodcastProps {
   data: SerializedItunesPodcastsProps[] | SerializedItunesPodcastDetailsProps;

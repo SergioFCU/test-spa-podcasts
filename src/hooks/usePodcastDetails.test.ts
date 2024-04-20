@@ -1,12 +1,12 @@
 import { renderHook } from "@testing-library/react";
 
-import { getPodcastDetails } from "../api/actions";
+import { getPodcastDetails } from "../common/actions";
 
 import { useContextPodcasts } from "@/contexts/context-podcasts";
 import { useLocalStorage } from "./useLocalStorage";
 import { usePodcastDetails } from "./usePodcastDetails";
 
-import { LOCALSTORAGE_PODCAST_DETAILS_KEY } from "@/api/consts";
+import { LOCALSTORAGE_PODCAST_DETAILS_KEY } from "@/common/consts";
 
 jest.mock("../api/actions", () => ({
   getPodcastDetails: jest.fn()

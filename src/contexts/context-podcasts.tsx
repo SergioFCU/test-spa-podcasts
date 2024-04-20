@@ -12,7 +12,7 @@ import {
   SerializedItunesPodcastsProps,
   SerializedItunesPodcastDetailsProps,
   IndexedResultsPodcastDetailsProps
-} from "@/api/types";
+} from "@/common/types";
 
 export const valueDefaultResultsPodcastDetails: IndexedResultsPodcastDetailsProps =
   {

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { serializedPodcastDetailsMock } from "@/test/mocks";
+import { serializedPodcastDetailsMock } from "@/common/mocks";
 import { CustomLayout } from "./custom-layout";
 
 describe("CustomLayout", () => {
