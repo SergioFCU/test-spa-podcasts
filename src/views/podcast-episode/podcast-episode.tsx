@@ -8,6 +8,12 @@ import { usePodcastEpisode } from "@/hooks/usePodcastEpisode";
 
 import { PodcastEpisodeProps } from "../types";
 
+const RMCustomLink = ({ ...props }) => (
+  <a {...props} className="text-blue-500 hover:underline">
+    {props.children}
+  </a>
+);
+
 export const PodcastEpisode = ({
   podcastId,
   episodeId
@@ -21,24 +27,24 @@ export const PodcastEpisode = ({
     String(podcastEpisode.trackId) === String(episodeId) ? (
     <CustomLayout podcastDetails={podcastDetails}>
       <div className="flex flex-col border-1 p-4 shadow-lg gap-5">
-        <p className="text-3xl font-semibold">{podcastEpisode.title}</p>
+        <h2 className="text-3xl font-semibold">{podcastEpisode.title}</h2>
         <ReactMarkdown
-          children={podcastEpisode.description}
           remarkPlugins={[remarkGfm]}
           components={{
-            a: ({ node, ...props }) => (
-              <a {...props} className="text-blue-500 hover:underline" />
-            )
+            a: ({ ...props }) => RMCustomLink({ ...props })
           }}
-        />
+        >
+          {podcastEpisode.description}
+        </ReactMarkdown>
         <audio autoPlay controls className="w-full">
-          <source src={podcastEpisode?.episodeUrl ?? ""} type="audio/mp3" />
+          <track kind="captions" />
+          <source src={podcastEpisode.episodeUrl} type="audio/mp3" />
         </audio>
       </div>
     </CustomLayout>
   ) : (
     <div className="w-full h-full flex justify-end">
-      <p>Loading...</p>
+      <section>Loading...</section>
     </div>
   );
 };
