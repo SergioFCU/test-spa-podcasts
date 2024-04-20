@@ -6,7 +6,7 @@ export const CustomTableEpisodes = ({
   podcastDetails,
   podcastId
 }: CustomTableEpisodesProps) => (
-  <div className="w-full h-min flex flex-col border-1 py-2 shadow-left-right-bottom xl:overflow-auto">
+  <div className="w-full h-full flex flex-col border-1 py-2 shadow-left-right-bottom overflow-auto">
     <table className="divide-y divide-gray-200">
       <thead>
         <tr>
