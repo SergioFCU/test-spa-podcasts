@@ -9,8 +9,8 @@ export const PodcastHome = () => {
   const { podcasts } = usePodcastHome();
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-5">
+    <div className="w-full h-full flex flex-col py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-10">
         {podcasts.map((podcast) => (
           <CustomCardCoverPodcast
             key={podcast.id}

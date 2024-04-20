@@ -9,5 +9,8 @@ export interface PodcastDetailPageProps {
 }
 
 export interface PodcastEpisodePageProps {
-  params: { episodeId: string };
+  params: {
+    podcastId: string;
+    episodeId: number;
+  };
 }

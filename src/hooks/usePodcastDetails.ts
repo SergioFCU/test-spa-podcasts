@@ -26,8 +26,6 @@ export const usePodcastDetails = (podcastId: string) => {
       )) as SerializedItunesPodcastDetailsProps;
 
       const foundPodcast = podcasts.find((podcast) => podcast.id === podcastId);
-      console.log(podcasts);
-      console.log(foundPodcast);
       setPodcastDetails({ ...response, ...foundPodcast });
 
       return handleSaveToLocalStorage(

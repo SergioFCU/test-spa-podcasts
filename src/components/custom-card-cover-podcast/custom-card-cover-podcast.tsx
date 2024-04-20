@@ -2,7 +2,7 @@ import Image from "next/image";
 import { CustomCardCoverPodcastProps } from "../types";
 
 export const CustomCardCoverPodcast = ({
-  image,
+  image = "",
   title,
   author,
   onClick
@@ -24,7 +24,7 @@ export const CustomCardCoverPodcast = ({
           height={150}
           className="relative z-10 rounded-full border-1 object-cover"
         />
-        <div className="w-full h-full -translate-y-1/2 border-1 text-center shadow-xl">
+        <div className="w-full h-full -translate-y-1/2 border-1 text-center shadow-left-right-bottom">
           <div className="w-full h-full -translate-y-1/2 flex flex-col justify-end items-center gap-2 mt-16 py-2 px-4">
             <p
               className="w-full text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-base hover:cursor-help"
