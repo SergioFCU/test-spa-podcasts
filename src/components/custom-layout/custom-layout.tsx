@@ -15,12 +15,12 @@ export const CustomLayout = ({
 
   return (
     <div
-      className="w-full flex flex-col h-full gap-16 xl:h-auto xl:flex-row"
+      className="w-full flex flex-col h-full py-10 gap-16 xl:h-auto xl:flex-row"
       style={{ height: height - 10 }}
     >
       <section
         id="podcast-detail-left-sidebar"
-        className="w-full xl:w-1/4 h-fit flex flex-col border-1 p-2 shadow-lg"
+        className="w-full xl:w-1/4 h-fit flex flex-col border-1 p-2 shadow-left-right-bottom"
       >
         <div className="flex flex-col">
           <div className="w-full flex justify-center">

@@ -26,7 +26,7 @@ export const PodcastEpisode = ({
   return podcastEpisode &&
     String(podcastEpisode.trackId) === String(episodeId) ? (
     <CustomLayout podcastDetails={podcastDetails}>
-      <div className="flex flex-col border-1 p-4 shadow-lg gap-5">
+      <div className="flex flex-col border-1 p-4 shadow-left-right-bottom gap-5">
         <h2 className="text-3xl font-semibold">{podcastEpisode.title}</h2>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
