@@ -46,13 +46,19 @@ const ContextPodcasts = createContext<{
   setPodcastEpisode: (
     val: SetStateAction<IndexedResultsPodcastDetailsProps>
   ) => void;
+  filteredPodcasts: SerializedItunesPodcastsProps[];
+  setFilteredPodcasts: (
+    val: SetStateAction<SerializedItunesPodcastsProps[]>
+  ) => void;
 }>({
   podcasts: [],
   setPodcasts: () => {},
   podcastDetails: valueDefaultPodcastDetails,
   setPodcastDetails: () => {},
   podcastEpisode: valueDefaultResultsPodcastDetails,
-  setPodcastEpisode: () => {}
+  setPodcastEpisode: () => {},
+  filteredPodcasts: [],
+  setFilteredPodcasts: () => {}
 });
 
 export const PodcastsProvider = ({ children }: any) => {
@@ -63,6 +69,8 @@ export const PodcastsProvider = ({ children }: any) => {
     useState<IndexedResultsPodcastDetailsProps>(
       valueDefaultResultsPodcastDetails
     );
+  const [filteredPodcasts, setFilteredPodcasts] =
+    useState<SerializedItunesPodcastsProps[]>(podcasts);
 
   const values = useMemo(
     () => ({
@@ -71,7 +79,9 @@ export const PodcastsProvider = ({ children }: any) => {
       podcastDetails,
       setPodcastDetails,
       podcastEpisode,
-      setPodcastEpisode
+      setPodcastEpisode,
+      filteredPodcasts,
+      setFilteredPodcasts
     }),
     [
       podcasts,
@@ -79,7 +89,9 @@ export const PodcastsProvider = ({ children }: any) => {
       podcastDetails,
       setPodcastDetails,
       podcastEpisode,
-      setPodcastEpisode
+      setPodcastEpisode,
+      filteredPodcasts,
+      setFilteredPodcasts
     ]
   );
 
