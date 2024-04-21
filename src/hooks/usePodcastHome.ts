@@ -84,11 +84,11 @@ export const usePodcastHome = () => {
     fetchPodcasts();
   }, [fetchPodcasts]);
 
-  useEffect(() => {
-    return () => {
-      setFilteredPodcasts(podcasts);
-    };
-  }, [podcasts, setFilteredPodcasts]);
+  // useEffect(() => {
+  //   return () => {
+  //     setFilteredPodcasts(podcasts);
+  //   };
+  // }, [podcasts, setFilteredPodcasts]);
 
   return {
     podcastsCount: podcasts.length,
