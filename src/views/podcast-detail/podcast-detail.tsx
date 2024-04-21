@@ -19,7 +19,7 @@ export const PodcastDetail = ({ podcastId }: PodcastDetailProps) => {
         <CustomTableEpisodes
           thList={["Title", "Date", "Duration"]}
           podcastDetails={podcastDetails}
-          podcastId={podcastId ?? ""}
+          podcastId={podcastId}
         />
       </CustomLayout>
     </CustomHeaderPodcast>

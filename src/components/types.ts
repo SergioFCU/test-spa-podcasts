@@ -29,3 +29,8 @@ export interface CustomRichTextProps {
   text: string;
   className?: string;
 }
+
+export interface CustomHeaderPodcastProps {
+  children?: React.ReactNode;
+  isShow?: boolean;
+}

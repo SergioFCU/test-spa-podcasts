@@ -54,7 +54,7 @@ export const usePodcastDetails = (podcastId: string) => {
           : _getPodcastDetails();
       }
     } catch (error) {
-      console.error(error);
+      console.error({ type: "Error fetch podcast details", error });
     }
   }, [
     podcastDetails,

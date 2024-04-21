@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 
 import {
   PodcastsProvider,
@@ -7,8 +7,10 @@ import {
   valueDefaultResultsPodcastDetails
 } from "./context-podcasts";
 
+import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
+
 describe("Test ContextPodcasts", () => {
-  it("uses the context correctly", () => {
+  it("uses the context correctly", async () => {
     const TestComponent = () => {
       const {
         podcasts,
@@ -16,16 +18,29 @@ describe("Test ContextPodcasts", () => {
         podcastDetails,
         setPodcastDetails,
         podcastEpisode,
-        setPodcastEpisode
+        setPodcastEpisode,
+        filteredPodcasts,
+        setFilteredPodcasts
       } = useContextPodcasts();
-
-      expect(podcasts).toEqual([]);
-      expect(podcastDetails).toEqual(valueDefaultPodcastDetails);
-      expect(podcastEpisode).toEqual(valueDefaultResultsPodcastDetails);
 
       expect(setPodcasts).toBeInstanceOf(Function);
       expect(setPodcastDetails).toBeInstanceOf(Function);
       expect(setPodcastEpisode).toBeInstanceOf(Function);
+      expect(setFilteredPodcasts).toBeInstanceOf(Function);
+
+      act(() => {
+        setPodcasts(parsedResponseItunesPodcastsMock);
+        setPodcastDetails(valueDefaultPodcastDetails);
+        setPodcastEpisode(valueDefaultResultsPodcastDetails);
+        setFilteredPodcasts(parsedResponseItunesPodcastsMock);
+      });
+
+      waitFor(() => {
+        expect(podcasts).toEqual(parsedResponseItunesPodcastsMock);
+        expect(podcastDetails).toEqual(valueDefaultPodcastDetails);
+        expect(podcastEpisode).toEqual(valueDefaultResultsPodcastDetails);
+        expect(filteredPodcasts).toEqual(podcasts);
+      });
 
       return null;
     };

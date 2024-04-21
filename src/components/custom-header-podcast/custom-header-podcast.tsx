@@ -1,12 +1,10 @@
 import Link from "next/link";
+import { CustomHeaderPodcastProps } from "../types";
 
 export const CustomHeaderPodcast = ({
   children,
   isShow
-}: {
-  children?: React.ReactNode;
-  isShow?: boolean;
-}) => {
+}: CustomHeaderPodcastProps) => {
   return (
     <section className="w-full h-full flex flex-col">
       <header className="w-full flex justify-between border-b-1 my-5 p-1">
