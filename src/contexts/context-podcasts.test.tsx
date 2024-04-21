@@ -16,16 +16,20 @@ describe("Test ContextPodcasts", () => {
         podcastDetails,
         setPodcastDetails,
         podcastEpisode,
-        setPodcastEpisode
+        setPodcastEpisode,
+        filteredPodcasts,
+        setFilteredPodcasts
       } = useContextPodcasts();
 
       expect(podcasts).toEqual([]);
       expect(podcastDetails).toEqual(valueDefaultPodcastDetails);
       expect(podcastEpisode).toEqual(valueDefaultResultsPodcastDetails);
+      expect(filteredPodcasts).toEqual(podcasts);
 
       expect(setPodcasts).toBeInstanceOf(Function);
       expect(setPodcastDetails).toBeInstanceOf(Function);
       expect(setPodcastEpisode).toBeInstanceOf(Function);
+      expect(setFilteredPodcasts).toBeInstanceOf(Function);
 
       return null;
     };

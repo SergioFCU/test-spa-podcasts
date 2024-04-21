@@ -1,42 +1,67 @@
 import { render, screen } from "@testing-library/react";
 
 import { PodcastHome } from "./podcast-home";
+import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
 
 jest.mock("next/navigation", () => ({
-  useRouter: jest.fn()
+  useRouter: () => ({
+    push: jest.fn()
+  })
 }));
 
 jest.mock("../../hooks/usePodcastHome.ts", () => ({
-  usePodcastHome: jest.fn().mockReturnValue({
-    podcasts: [
-      {
-        id: "1",
-        title: "Podcast 1",
-        author: "Author 1",
-        image: "https://example.com/image1.jpg"
-      },
-      {
-        id: "2",
-        title: "Podcast 2",
-        author: "Author 2",
-        image: "https://example.com/image2.jpg"
-      }
-    ]
+  usePodcastHome: () => ({
+    filteredPodcasts: parsedResponseItunesPodcastsMock,
+    podcastsCount: parsedResponseItunesPodcastsMock.length,
+    onFilterPodcasts: jest.fn()
   })
 }));
 
 describe("Test PodcastHome", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
     render(<PodcastHome />);
   });
 
   it("renders the component correctly", () => {
-    expect(screen.getByText("PODCAST 1")).toBeInTheDocument();
-    expect(screen.getByText("Author: Author 1")).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "PODCAST 1" })).toBeInTheDocument();
+    expect(screen.getByText("THE JOE BUDDEN PODCAST")).toBeInTheDocument();
+    expect(
+      screen.getByText("Author: The Joe Budden Network")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "THE JOE BUDDEN PODCAST" })
+    ).toBeInTheDocument();
 
-    expect(screen.getByText("PODCAST 2")).toBeInTheDocument();
-    expect(screen.getByText("Author: Author 2")).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "PODCAST 2" })).toBeInTheDocument();
+    expect(screen.getByText("THE MORNING SHIFT")).toBeInTheDocument();
+    expect(screen.getByText("Author: YOUKNOW MEDIA")).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "THE MORNING SHIFT" })
+    ).toBeInTheDocument();
+
+    expect(screen.getByText("NEW RORY & MAL")).toBeInTheDocument();
+    expect(
+      screen.getByText(`Author: Rory Farrell & Jamil "Mal" Clay & Studio71`)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "NEW RORY & MAL" })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the filter input correctly", () => {
+    expect(
+      screen.getByPlaceholderText("Filter podcasts...")
+    ).toBeInTheDocument();
+    expect(screen.getByText("3")).toBeInTheDocument();
+  });
+
+  it("links to the podcast page", () => {
+    const podcastCard = screen.getAllByTestId(
+      "custom-card-cover-podcast-button"
+    );
+    podcastCard.forEach((card) => {
+      card.click();
+    });
+
+    expect(podcastCard).toHaveLength(3);
   });
 });

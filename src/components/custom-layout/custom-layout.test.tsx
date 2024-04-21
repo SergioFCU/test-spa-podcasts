@@ -11,7 +11,6 @@ describe("CustomLayout", () => {
       </CustomLayout>
     );
 
-    // Assert that the sidebar image is rendered
     const sidebarImage = screen.getByAltText("sidebar-image");
     expect(sidebarImage).toBeInTheDocument();
 

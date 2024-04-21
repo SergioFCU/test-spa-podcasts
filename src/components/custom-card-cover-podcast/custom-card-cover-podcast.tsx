@@ -13,6 +13,7 @@ export const CustomCardCoverPodcast = ({
   return (
     <div className="w-full h-full transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:cursor-pointer duration-300">
       <button
+        data-testid="custom-card-cover-podcast-button"
         className="w-full h-full flex flex-col justify-center items-center"
         onClick={onClick}
       >

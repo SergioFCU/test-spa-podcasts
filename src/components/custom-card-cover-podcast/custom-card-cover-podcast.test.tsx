@@ -14,7 +14,6 @@ describe("CustomCardCoverPodcast", () => {
   it("renders the component correctly", () => {
     render(<CustomCardCoverPodcast {...mockProps} />);
 
-    // Assert that the component renders without errors
     expect(screen.getByRole("button")).toBeInTheDocument();
     expect(
       screen.getByRole("img", { name: "PODCAST TITLE" })
@@ -26,11 +25,8 @@ describe("CustomCardCoverPodcast", () => {
 
   it("calls the onClick function when the button is clicked", () => {
     render(<CustomCardCoverPodcast {...mockProps} />);
-
-    // Simulate a button click
     fireEvent.click(screen.getByRole("button"));
 
-    // Assert that the onClick function is called
     expect(mockProps.onClick).toHaveBeenCalled();
   });
 });
