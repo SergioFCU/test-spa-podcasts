@@ -2,7 +2,7 @@ import {
   SerializedItunesPodcastsProps,
   ResponseItunesPodcastsProps,
   ResponseItunesDetailPodcastProps
-} from "@/api/types";
+} from "@/common/types";
 
 export const responseItunesPodcastsMock = {
   feed: {

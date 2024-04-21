@@ -7,6 +7,7 @@ import { CustomLayout } from "@/components/custom-layout/custom-layout";
 import { usePodcastEpisode } from "@/hooks/usePodcastEpisode";
 
 import { PodcastEpisodeProps } from "../types";
+import { CustomHeaderPodcast } from "@/components/custom-header-podcast/custom-header-podcast";
 
 const RMCustomLink = ({ ...props }) => (
   <a {...props} className="text-blue-500 hover:underline">
@@ -23,28 +24,30 @@ export const PodcastEpisode = ({
     episodeId
   );
 
-  return podcastEpisode &&
-    String(podcastEpisode.trackId) === String(episodeId) ? (
-    <CustomLayout podcastDetails={podcastDetails}>
-      <div className="flex flex-col border-1 p-4 shadow-left-right-bottom gap-5">
-        <h2 className="text-3xl font-semibold">{podcastEpisode.title}</h2>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            a: ({ ...props }) => RMCustomLink({ ...props })
-          }}
-        >
-          {podcastEpisode.description}
-        </ReactMarkdown>
-        <audio autoPlay controls className="w-full">
-          <track kind="captions" />
-          <source src={podcastEpisode.episodeUrl} type="audio/mp3" />
-        </audio>
-      </div>
-    </CustomLayout>
-  ) : (
-    <div className="w-full h-full flex justify-end">
-      <section>Loading...</section>
-    </div>
+  return (
+    <CustomHeaderPodcast>
+      {podcastEpisode &&
+      String(podcastEpisode.trackId) === String(episodeId) ? (
+        <CustomLayout podcastDetails={podcastDetails}>
+          <div className="flex flex-col border-1 p-4 shadow-left-right-bottom gap-5">
+            <h2 className="text-3xl font-semibold">{podcastEpisode.title}</h2>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                a: ({ ...props }) => RMCustomLink({ ...props })
+              }}
+            >
+              {podcastEpisode.description}
+            </ReactMarkdown>
+            <audio autoPlay controls className="w-full">
+              <track kind="captions" />
+              <source src={podcastEpisode.episodeUrl} type="audio/mp3" />
+            </audio>
+          </div>
+        </CustomLayout>
+      ) : (
+        <></>
+      )}
+    </CustomHeaderPodcast>
   );
 };

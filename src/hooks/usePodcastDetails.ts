@@ -5,10 +5,10 @@ import { useCallback, useEffect } from "react";
 import { useContextPodcasts } from "@/contexts/context-podcasts";
 import { useLocalStorage } from "./useLocalStorage";
 
-import { getPodcastDetails } from "@/api/actions";
-import { LOCALSTORAGE_PODCAST_DETAILS_KEY } from "@/api/consts";
+import { LOCALSTORAGE_PODCAST_DETAILS_KEY } from "@/common/consts";
+import { getPodcastDetails } from "@/app/podcast/[podcastId]/actions";
 
-import { SerializedItunesPodcastDetailsProps } from "@/api/types";
+import { SerializedItunesPodcastDetailsProps } from "@/common/types";
 
 export const usePodcastDetails = (podcastId: string) => {
   const {

@@ -1,4 +1,4 @@
-import { SerializedItunesPodcastsProps } from "@/api/types";
+import { SerializedItunesPodcastsProps } from "@/common/types";
 import { LocalStoragePodcastProps } from "./types";
 
 export const useLocalStorage = () => {

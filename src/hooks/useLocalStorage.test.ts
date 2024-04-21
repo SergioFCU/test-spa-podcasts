@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 
-import { parsedResponseItunesPodcastsMock } from "@/test/mocks";
+import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
 import { useLocalStorage } from "./useLocalStorage";
 
 describe("useLocalStorage", () => {

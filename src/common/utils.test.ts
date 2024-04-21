@@ -1,7 +1,7 @@
 import {
   responseItunesPodcastDetailsMock,
   responseItunesPodcastsMock
-} from "@/test/mocks";
+} from "@/common/mocks";
 import {
   formatDuration,
   formatDate,

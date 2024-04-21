@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react";
 
 import { usePodcastHome } from "./usePodcastHome";
 
-jest.mock("../api/actions.ts");
+jest.mock("../app/actions");
 
 jest.mock("../contexts/context-podcasts", () => ({
   useContextPodcasts: () => ({
