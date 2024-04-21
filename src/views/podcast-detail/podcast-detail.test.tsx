@@ -22,4 +22,11 @@ describe("PodcastDetail", () => {
     expect(screen.getByText("Date")).toBeInTheDocument();
     expect(screen.getByText("Duration")).toBeInTheDocument();
   });
+
+  it("renders the component when podcastid is different", () => {
+    render(<PodcastDetail podcastId="1" />);
+    expect(screen.queryByText("Title")).toBeNull();
+    expect(screen.queryByText("Date")).toBeNull();
+    expect(screen.queryByText("Duration")).toBeNull();
+  });
 });
