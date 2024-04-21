@@ -12,20 +12,18 @@ import { PodcastDetailProps } from "../types";
 export const PodcastDetail = ({ podcastId }: PodcastDetailProps) => {
   const { podcastDetails } = usePodcastDetails(podcastId);
 
-  return (
+  return podcastDetails.id === podcastId ? (
     <CustomHeaderPodcast>
-      {podcastDetails.id === podcastId ? (
-        <CustomLayout podcastDetails={podcastDetails}>
-          <CustomCountEpisodes count={podcastDetails.resultCount} />
-          <CustomTableEpisodes
-            thList={["Title", "Date", "Duration"]}
-            podcastDetails={podcastDetails}
-            podcastId={podcastId ?? ""}
-          />
-        </CustomLayout>
-      ) : (
-        <></>
-      )}
+      <CustomLayout podcastDetails={podcastDetails}>
+        <CustomCountEpisodes count={podcastDetails.resultCount} />
+        <CustomTableEpisodes
+          thList={["Title", "Date", "Duration"]}
+          podcastDetails={podcastDetails}
+          podcastId={podcastId ?? ""}
+        />
+      </CustomLayout>
     </CustomHeaderPodcast>
+  ) : (
+    <></>
   );
 };
