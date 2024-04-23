@@ -1,8 +1,7 @@
-import { SerializedItunesPodcastsProps } from "@/common/types";
 import { LocalStoragePodcastProps } from "./types";
 
 export const useLocalStorage = () => {
-  const handleCheckLocalStorage = (key: string) => {
+  const checkLocalStorage = (key: string) => {
     if (typeof window !== "undefined") {
       return localStorage.getItem(key);
     }
@@ -10,8 +9,8 @@ export const useLocalStorage = () => {
     return false;
   };
 
-  const handleLoadFromLocalStorage = (key: string) => {
-    const checkedLocalStorage = handleCheckLocalStorage(key);
+  const loadFromLocalStorage = (key: string) => {
+    const checkedLocalStorage = checkLocalStorage(key);
     if (!checkedLocalStorage) {
       return false;
     }
@@ -21,7 +20,7 @@ export const useLocalStorage = () => {
     return dataLocalStorage as LocalStoragePodcastProps;
   };
 
-  const handleSaveToLocalStorage = (
+  const saveToLocalStorage = (
     key: string,
     value: LocalStoragePodcastProps["data"]
   ) => {
@@ -44,10 +43,19 @@ export const useLocalStorage = () => {
     return differenceInHours < 24;
   };
 
+  const getValidLocalStorageData = (key: string) => {
+    const dataLocalStorage = loadFromLocalStorage(key);
+
+    return dataLocalStorage && isWithin24Hours(dataLocalStorage.timestamp)
+      ? (dataLocalStorage.data as LocalStoragePodcastProps["data"])
+      : undefined;
+  };
+
   return {
-    handleCheckLocalStorage,
-    handleLoadFromLocalStorage,
-    handleSaveToLocalStorage,
-    isWithin24Hours
+    checkLocalStorage,
+    loadFromLocalStorage,
+    saveToLocalStorage,
+    isWithin24Hours,
+    getValidLocalStorageData
   };
 };

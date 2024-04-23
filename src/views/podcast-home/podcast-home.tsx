@@ -24,7 +24,7 @@ export const PodcastHome = () => {
             onChange={onFilterPodcasts}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-5">
           {filteredPodcasts.map((podcast) => (
             <CustomCardCoverPodcast
               key={podcast.id}

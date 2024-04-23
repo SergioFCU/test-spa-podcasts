@@ -1,23 +1,20 @@
 "use client";
 
-import { ChangeEvent, useCallback, useEffect } from "react";
-
-import { useContextPodcasts } from "@/contexts/context-podcasts";
-import { useLocalStorage } from "./useLocalStorage";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import { getPodcasts } from "@/app/actions";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+
 import { LOCALSTORAGE_PODCASTS_KEY } from "@/common/consts";
 import { SerializedItunesPodcastsProps } from "@/common/types";
 
 export const usePodcastHome = () => {
-  const {
-    handleLoadFromLocalStorage,
-    handleSaveToLocalStorage,
-    isWithin24Hours
-  } = useLocalStorage();
+  const { saveToLocalStorage, getValidLocalStorageData } = useLocalStorage();
 
-  const { podcasts, setPodcasts, filteredPodcasts, setFilteredPodcasts } =
-    useContextPodcasts();
+  const [podcasts, setPodcasts] = useState<SerializedItunesPodcastsProps[]>([]);
+  const [filteredPodcasts, setFilteredPodcasts] = useState<
+    SerializedItunesPodcastsProps[]
+  >([]);
 
   const _getPodcasts: () => Promise<void> = useCallback(async () => {
     if (podcasts.length <= 0) {
@@ -25,36 +22,28 @@ export const usePodcastHome = () => {
       setPodcasts(response);
       setFilteredPodcasts(response);
 
-      return handleSaveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
+      return saveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
     }
-  }, [podcasts, setPodcasts, handleSaveToLocalStorage, getPodcasts]);
+  }, [podcasts, saveToLocalStorage]);
 
   const fetchPodcasts: () => Promise<void> = useCallback(async () => {
     try {
-      if (podcasts.length <= 0) {
-        const dataLocalStorage = handleLoadFromLocalStorage(
+      if (!podcasts.length) {
+        const hasDataLocalStorage = getValidLocalStorageData(
           LOCALSTORAGE_PODCASTS_KEY
-        );
+        ) as SerializedItunesPodcastsProps[];
 
-        if (dataLocalStorage && isWithin24Hours(dataLocalStorage.timestamp)) {
-          setPodcasts(dataLocalStorage.data as SerializedItunesPodcastsProps[]);
-          setFilteredPodcasts(
-            dataLocalStorage.data as SerializedItunesPodcastsProps[]
-          );
+        if (hasDataLocalStorage) {
+          setPodcasts(hasDataLocalStorage);
+          setFilteredPodcasts(hasDataLocalStorage);
+        } else {
+          await _getPodcasts();
         }
-
-        return _getPodcasts();
       }
     } catch (error) {
       console.error({ type: "Error fetch podcasts", error });
     }
-  }, [
-    podcasts,
-    setPodcasts,
-    handleLoadFromLocalStorage,
-    isWithin24Hours,
-    _getPodcasts
-  ]);
+  }, [_getPodcasts, getValidLocalStorageData, podcasts]);
 
   const onFilterPodcasts = useCallback(
     (search: ChangeEvent<HTMLInputElement>) => {
@@ -62,9 +51,7 @@ export const usePodcastHome = () => {
         return setFilteredPodcasts(podcasts);
       }
 
-      const { value } = search.target;
-      const lowercaseInput = value.toLowerCase();
-
+      const lowercaseInput = search.target.value.toLowerCase();
       const filteredPodcasts = podcasts.filter((item) => {
         const title = item.title.toLowerCase();
         const author = item.author.toLowerCase();
@@ -76,8 +63,7 @@ export const usePodcastHome = () => {
 
       setFilteredPodcasts(filteredPodcasts);
     },
-
-    [podcasts, setFilteredPodcasts]
+    [podcasts]
   );
 
   useEffect(() => {

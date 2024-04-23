@@ -1,22 +1,19 @@
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
-import { useContextPodcasts } from "@/contexts/context-podcasts";
+import { getPodcasts } from "@/app/actions";
+import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { usePodcastHome } from "./usePodcastHome";
 
-import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
-
-jest.mock("../app/actions");
+jest.mock("../app/actions", () => ({
+  getPodcasts: jest.fn()
+}));
 
 jest.mock("./useLocalStorage", () => ({
   useLocalStorage: jest.fn(() => ({
-    handleLoadFromLocalStorage: jest.fn(),
-    handleSaveToLocalStorage: jest.fn(),
-    isWithin24Hours: jest.fn()
+    saveToLocalStorage: jest.fn(),
+    getValidLocalStorageData: jest.fn()
   }))
-}));
-
-jest.mock("../contexts/context-podcasts", () => ({
-  useContextPodcasts: jest.fn()
 }));
 
 describe("usePodcastHome", () => {
@@ -24,75 +21,70 @@ describe("usePodcastHome", () => {
     jest.clearAllMocks();
   });
 
-  it("should initialize with empty podcasts array", () => {
-    (useContextPodcasts as jest.Mock).mockReturnValue({
-      podcasts: [],
-      setPodcasts: jest.fn(),
-      filteredPodcasts: [],
-      setFilteredPodcasts: jest.fn()
-    });
-
+  it("should fetch podcasts and set initial state", async () => {
     const { result } = renderHook(() => usePodcastHome());
 
-    expect(result.current.podcastsCount).toEqual(0);
+    expect(result.current.podcastsCount).toBe(0);
+    expect(result.current.filteredPodcasts).toEqual([]);
+
+    expect(getPodcasts).toHaveBeenCalledTimes(1);
+    expect(result.current.podcastsCount).toBe(0);
     expect(result.current.filteredPodcasts).toEqual([]);
   });
 
-  it("should initialize with podcasts array", () => {
-    (useContextPodcasts as jest.Mock).mockReturnValue({
-      podcasts: parsedResponseItunesPodcastsMock,
-      setPodcasts: jest.fn(),
-      filteredPodcasts: parsedResponseItunesPodcastsMock,
-      setFilteredPodcasts: jest.fn()
+  it("should fetch podcasts from local storage if available", async () => {
+    (useLocalStorage as jest.Mock).mockReturnValueOnce({
+      getValidLocalStorageData: jest.fn(() => parsedResponseItunesPodcastsMock)
     });
 
     const { result } = renderHook(() => usePodcastHome());
 
-    expect(result.current.podcastsCount).toEqual(3);
+    expect(getPodcasts).not.toHaveBeenCalled();
+    expect(result.current.podcastsCount).toBe(3);
+    expect(result.current.filteredPodcasts).toEqual(
+      parsedResponseItunesPodcastsMock
+    );
+  });
+
+  it("should not filter whith empty text", () => {
+    (useLocalStorage as jest.Mock).mockReturnValueOnce({
+      getValidLocalStorageData: jest.fn(() => parsedResponseItunesPodcastsMock)
+    });
+
+    const { result } = renderHook(() => usePodcastHome());
+
+    act(() => {
+      result.current.onFilterPodcasts({
+        target: { value: "" }
+      } as React.ChangeEvent<HTMLInputElement>);
+    });
+
     expect(result.current.filteredPodcasts).toEqual(
       parsedResponseItunesPodcastsMock
     );
   });
 
   it("should filter podcasts with text", () => {
-    const setFilteredPodcasts = jest.fn();
-    (useContextPodcasts as jest.Mock).mockReturnValue({
-      podcasts: parsedResponseItunesPodcastsMock,
-      setPodcasts: jest.fn(),
-      filteredPodcasts: parsedResponseItunesPodcastsMock,
-      setFilteredPodcasts
+    (useLocalStorage as jest.Mock).mockReturnValueOnce({
+      getValidLocalStorageData: jest.fn(() => parsedResponseItunesPodcastsMock)
     });
 
     const { result } = renderHook(() => usePodcastHome());
 
-    const event = { target: { value: "THE JOE BUDDEN PODCAST" } };
-    result.current.onFilterPodcasts(
-      event as React.ChangeEvent<HTMLInputElement>
-    );
+    act(() => {
+      result.current.onFilterPodcasts({
+        target: { value: "The Joe Budden Podcast" }
+      } as React.ChangeEvent<HTMLInputElement>);
+    });
 
-    expect(setFilteredPodcasts).toHaveBeenCalledWith([
-      parsedResponseItunesPodcastsMock[0]
+    expect(result.current.filteredPodcasts).toEqual([
+      {
+        title: "The Joe Budden Podcast",
+        image:
+          "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
+        author: "The Joe Budden Network",
+        id: "1535809341"
+      }
     ]);
-  });
-
-  it("should filter podcasts with text", () => {
-    const setFilteredPodcasts = jest.fn();
-    (useContextPodcasts as jest.Mock).mockReturnValue({
-      podcasts: parsedResponseItunesPodcastsMock,
-      setPodcasts: jest.fn(),
-      filteredPodcasts: parsedResponseItunesPodcastsMock,
-      setFilteredPodcasts
-    });
-
-    const { result } = renderHook(() => usePodcastHome());
-
-    const event = { target: { value: "" } };
-    result.current.onFilterPodcasts(
-      event as React.ChangeEvent<HTMLInputElement>
-    );
-
-    expect(setFilteredPodcasts).toHaveBeenCalledWith(
-      parsedResponseItunesPodcastsMock
-    );
   });
 });
