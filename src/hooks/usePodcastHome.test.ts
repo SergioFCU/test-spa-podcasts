@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 
 import { getPodcasts } from "@/app/actions";
 import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
@@ -24,11 +24,7 @@ describe("usePodcastHome", () => {
   it("should fetch podcasts and set initial state", async () => {
     const { result } = renderHook(() => usePodcastHome());
 
-    expect(result.current.podcastsCount).toBe(0);
-    expect(result.current.filteredPodcasts).toEqual([]);
-
-    expect(getPodcasts).toHaveBeenCalledTimes(1);
-    expect(result.current.podcastsCount).toBe(0);
+    expect(result.current.podcasts).toEqual([]);
     expect(result.current.filteredPodcasts).toEqual([]);
   });
 
@@ -40,51 +36,82 @@ describe("usePodcastHome", () => {
     const { result } = renderHook(() => usePodcastHome());
 
     expect(getPodcasts).not.toHaveBeenCalled();
-    expect(result.current.podcastsCount).toBe(3);
-    expect(result.current.filteredPodcasts).toEqual(
-      parsedResponseItunesPodcastsMock
-    );
+
+    await waitFor(() => {
+      expect(result.current.podcasts).toEqual(parsedResponseItunesPodcastsMock);
+      expect(result.current.filteredPodcasts).toEqual(
+        parsedResponseItunesPodcastsMock
+      );
+    });
   });
 
-  it("should not filter whith empty text", () => {
-    (useLocalStorage as jest.Mock).mockReturnValueOnce({
-      getValidLocalStorageData: jest.fn(() => parsedResponseItunesPodcastsMock)
-    });
+  it("should fetch podcasts from API", async () => {
+    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+      parsedResponseItunesPodcastsMock
+    );
 
     const { result } = renderHook(() => usePodcastHome());
 
-    act(() => {
+    expect(getPodcasts).toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(result.current.podcasts).toEqual(parsedResponseItunesPodcastsMock);
+      expect(result.current.filteredPodcasts).toEqual(
+        parsedResponseItunesPodcastsMock
+      );
+    });
+  });
+
+  it("should fetch podcasts from API with error", async () => {
+    (getPodcasts as jest.Mock).mockRejectedValueOnce(new Error("Error"));
+
+    const { result } = renderHook(() => usePodcastHome());
+
+    await waitFor(() => {
+      expect(result.current.podcasts).toEqual([]);
+      expect(result.current.filteredPodcasts).toEqual([]);
+    });
+  });
+
+  it("should not filter whith empty text", async () => {
+    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+      parsedResponseItunesPodcastsMock
+    );
+
+    const { result } = renderHook(() => usePodcastHome());
+
+    await waitFor(() => {
       result.current.onFilterPodcasts({
         target: { value: "" }
       } as React.ChangeEvent<HTMLInputElement>);
-    });
 
-    expect(result.current.filteredPodcasts).toEqual(
-      parsedResponseItunesPodcastsMock
-    );
+      expect(result.current.filteredPodcasts).toEqual(
+        parsedResponseItunesPodcastsMock
+      );
+    });
   });
 
-  it("should filter podcasts with text", () => {
-    (useLocalStorage as jest.Mock).mockReturnValueOnce({
-      getValidLocalStorageData: jest.fn(() => parsedResponseItunesPodcastsMock)
-    });
+  it("should filter podcasts with text", async () => {
+    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+      parsedResponseItunesPodcastsMock
+    );
 
     const { result } = renderHook(() => usePodcastHome());
 
-    act(() => {
+    await waitFor(() => {
       result.current.onFilterPodcasts({
         target: { value: "The Joe Budden Podcast" }
       } as React.ChangeEvent<HTMLInputElement>);
-    });
 
-    expect(result.current.filteredPodcasts).toEqual([
-      {
-        title: "The Joe Budden Podcast",
-        image:
-          "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
-        author: "The Joe Budden Network",
-        id: "1535809341"
-      }
-    ]);
+      expect(result.current.filteredPodcasts).toEqual([
+        {
+          title: "The Joe Budden Podcast",
+          image:
+            "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
+          author: "The Joe Budden Network",
+          id: "1535809341"
+        }
+      ]);
+    });
   });
 });

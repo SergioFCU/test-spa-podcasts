@@ -16,34 +16,33 @@ export const usePodcastHome = () => {
     SerializedItunesPodcastsProps[]
   >([]);
 
-  const _getPodcasts: () => Promise<void> = useCallback(async () => {
-    if (podcasts.length <= 0) {
+  const getAllPodcasts = useCallback(async () => {
+    const hasDataLocalStorage = getValidLocalStorageData(
+      LOCALSTORAGE_PODCASTS_KEY
+    );
+
+    if (hasDataLocalStorage) {
+      return hasDataLocalStorage;
+    } else {
       const response = await getPodcasts();
-      setPodcasts(response);
-      setFilteredPodcasts(response);
+      saveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
 
-      return saveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
+      return response;
     }
-  }, [podcasts, saveToLocalStorage]);
+  }, [getPodcasts, saveToLocalStorage, getValidLocalStorageData]);
 
-  const fetchPodcasts: () => Promise<void> = useCallback(async () => {
+  const fetchAllPodcasts = useCallback(async () => {
     try {
       if (!podcasts.length) {
-        const hasDataLocalStorage = getValidLocalStorageData(
-          LOCALSTORAGE_PODCASTS_KEY
-        ) as SerializedItunesPodcastsProps[];
-
-        if (hasDataLocalStorage) {
-          setPodcasts(hasDataLocalStorage);
-          setFilteredPodcasts(hasDataLocalStorage);
-        } else {
-          await _getPodcasts();
-        }
+        const response =
+          (await getAllPodcasts()) as SerializedItunesPodcastsProps[];
+        setPodcasts(response);
+        setFilteredPodcasts(response);
       }
     } catch (error) {
       console.error({ type: "Error fetch podcasts", error });
     }
-  }, [_getPodcasts, getValidLocalStorageData, podcasts]);
+  }, [getAllPodcasts, podcasts]);
 
   const onFilterPodcasts = useCallback(
     (search: ChangeEvent<HTMLInputElement>) => {
@@ -67,12 +66,13 @@ export const usePodcastHome = () => {
   );
 
   useEffect(() => {
-    fetchPodcasts();
-  }, [fetchPodcasts]);
+    fetchAllPodcasts();
+  }, [fetchAllPodcasts]);
 
   return {
-    podcastsCount: podcasts.length,
+    podcasts,
     filteredPodcasts,
+    getAllPodcasts,
     onFilterPodcasts
   };
 };

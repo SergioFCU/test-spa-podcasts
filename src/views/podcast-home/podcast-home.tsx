@@ -7,12 +7,11 @@ import { useRouter } from "next/navigation";
 
 export const PodcastHome = () => {
   const router = useRouter();
-  const { podcastsCount, onFilterPodcasts, filteredPodcasts } =
-    usePodcastHome();
-
+  const { podcasts, onFilterPodcasts, filteredPodcasts } = usePodcastHome();
+  console.log(podcasts);
   return (
     <div className="w-full h-full flex flex-col">
-      <CustomHeaderPodcast isShow={!podcastsCount}>
+      <CustomHeaderPodcast isShow={!podcasts.length}>
         <div className="flex justify-end items-center mb-12 gap-3">
           <div className="w-fit h-fit flex items-center rounded-lg p-1 font-semibold text-white bg-sky-700">
             {filteredPodcasts.length}
