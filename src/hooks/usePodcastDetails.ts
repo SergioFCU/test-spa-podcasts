@@ -1,72 +1,70 @@
-"use client";
+import { useCallback, useEffect, useState } from "react";
 
-import { useCallback, useEffect } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { usePodcastHome } from "@/hooks/usePodcastHome";
 
-import { useContextPodcasts } from "@/contexts/context-podcasts";
-import { useLocalStorage } from "./useLocalStorage";
-
+import { getPodcastDetailsAPI } from "@/app/podcast/[podcastId]/actions";
 import { LOCALSTORAGE_PODCAST_DETAILS_KEY } from "@/common/consts";
-import { getPodcastDetails } from "@/app/podcast/[podcastId]/actions";
 
 import { SerializedItunesPodcastDetailsProps } from "@/common/types";
 
 export const usePodcastDetails = (podcastId: string) => {
-  const {
-    handleLoadFromLocalStorage,
-    handleSaveToLocalStorage,
-    isWithin24Hours
-  } = useLocalStorage();
+  const { saveToLocalStorage, getValidLocalStorageData } = useLocalStorage();
+  const { podcasts } = usePodcastHome();
 
-  const { podcasts, podcastDetails, setPodcastDetails } = useContextPodcasts();
+  const [podcastDetails, setPodcastDetails] =
+    useState<SerializedItunesPodcastDetailsProps>(
+      {} as SerializedItunesPodcastDetailsProps
+    );
 
-  const _getPodcastDetails: () => Promise<void> = useCallback(async () => {
-    if (podcastDetails.id !== podcastId) {
-      const response = (await getPodcastDetails(
+  const getPodcastDetails = useCallback(async () => {
+    const hasDataLocalStorage = getValidLocalStorageData(
+      `${LOCALSTORAGE_PODCAST_DETAILS_KEY}-${podcastId}`
+    );
+
+    if (hasDataLocalStorage) {
+      return hasDataLocalStorage;
+    } else {
+      const gottenPodcastDetails = (await getPodcastDetailsAPI(
         podcastId
       )) as SerializedItunesPodcastDetailsProps;
 
-      const foundPodcast = podcasts.find((podcast) => podcast.id === podcastId);
-      setPodcastDetails({ ...response, ...foundPodcast });
+      const foundPodcastDetails = podcasts.find(
+        (podcast) => podcast.id === podcastId
+      );
 
-      return handleSaveToLocalStorage(
+      const response = { ...gottenPodcastDetails, ...foundPodcastDetails };
+
+      saveToLocalStorage(
         `${LOCALSTORAGE_PODCAST_DETAILS_KEY}-${podcastId}`,
-        { ...response, ...foundPodcast }
+        response
       );
+
+      return response;
     }
   }, [
-    podcastDetails,
-    setPodcastDetails,
-    handleSaveToLocalStorage,
-    getPodcastDetails
+    getValidLocalStorageData,
+    getPodcastDetailsAPI,
+    podcasts,
+    podcastId,
+    saveToLocalStorage
   ]);
 
-  const fetchPodcastDetails: () => Promise<void> = useCallback(async () => {
-    try {
-      const dataLocalStorage = handleLoadFromLocalStorage(
-        `${LOCALSTORAGE_PODCAST_DETAILS_KEY}-${podcastId}`
-      );
-
-      if (podcastDetails.id !== podcastId) {
-        return dataLocalStorage && isWithin24Hours(dataLocalStorage.timestamp)
-          ? setPodcastDetails(
-              dataLocalStorage.data as SerializedItunesPodcastDetailsProps
-            )
-          : _getPodcastDetails();
+  const fetchPodcastDetails = useCallback(async () => {
+    if (!Object.keys(podcastDetails).length) {
+      try {
+        const response =
+          (await getPodcastDetails()) as SerializedItunesPodcastDetailsProps;
+        setPodcastDetails(response);
+      } catch (error) {
+        console.error({ type: "Error fetch podcast details", error });
       }
-    } catch (error) {
-      console.error({ type: "Error fetch podcast details", error });
     }
-  }, [
-    podcastDetails,
-    handleLoadFromLocalStorage,
-    isWithin24Hours,
-    setPodcastDetails,
-    _getPodcastDetails
-  ]);
+  }, [getPodcastDetails, podcastDetails, setPodcastDetails]);
 
   useEffect(() => {
     fetchPodcastDetails();
-  }, [fetchPodcastDetails, podcastId]);
+  }, [fetchPodcastDetails]);
 
   return {
     podcastDetails,

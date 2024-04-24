@@ -327,48 +327,28 @@ export const parsedResponseItunesPodcastsMock = [
 ] as SerializedItunesPodcastsProps[];
 
 export const responseItunesPodcastDetailsMock = {
-  resultCount: 1,
+  id: "1535809341",
+  coverImage:
+    "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/600x600bb.jpg",
+  resultCount: 51,
   results: [
     {
-      trackViewUrl:
-        "https://podcasts.apple.com/us/podcast/mf-doom-a-hero-in-a-villains-mask/id1143845868?i=1000650475188&uo=4",
+      title: "The Joe Budden Podcast",
+      duration: "00:12",
+      date: "04/20/2024",
+      episodeUrl: "",
+      description: "",
+      trackId: 1535809341
+    },
+    {
+      title: 'Episode 718 | "The PAWG Whisperer"',
+      duration: "211:20",
+      date: "04/20/2024",
       episodeUrl:
-        "https://traffic.megaphone.fm/GLT5992162491.mp3?updated=1711377280",
-      artworkUrl160:
-        "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/15/7c/ee/157ceee5-28d2-a17d-f516-acf8c15a9618/mza_1670785262316099580.jpg/160x160bb.jpg",
-      artworkUrl600:
-        "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/15/7c/ee/157ceee5-28d2-a17d-f516-acf8c15a9618/mza_1670785262316099580.jpg/600x600bb.jpg",
-      episodeFileExtension: "mp3",
-      episodeContentType: "audio",
-      feedUrl: "https://feeds.megaphone.fm/dissectwide",
-      previewUrl:
-        "https://traffic.megaphone.fm/GLT5992162491.mp3?updated=1711377280",
-      closedCaptioning: "none",
-      collectionId: 1143845868,
-      collectionName: "Dissect",
-      artistIds: [],
-      trackTimeMillis: 2544000,
-      trackId: 1000650475188,
-      trackName: "MF DOOM: A Hero in a Villain's Mask",
-      shortDescription: "",
-      releaseDate: "2024-03-26T09:50:00Z",
+        "https://verifi.podscribe.com/rss/p/traffic.libsyn.com/secure/jbpod/Joe_Budden_Podcast_718.mp3?dest-id=2422538",
       description:
-        "Season 12 of Dissect celebrates the life and legacy of MF DOOM through a line by line, beat by beat analysis of his art. Most of the season will be spent dissecting DOOM and Madlib’s classic album Madvillainy, but we’ll also be covering his debut Operation Doomsday, MM..FOOD, and Born Like This. \nOn today’s episode, we explore the legend of DOOM’s origin story, including Daniel Dumile’s childhood in New York, the rise and tragic fall of his rap group KMD, and his reemergence as MF DOOM in the late 90s.\nHost, Writer, EP: Cole Cuchna\nWriter/Researcher: Camden Ostrander\nOriginal Score/Audio: Kevin Pooler\nAdditional Production Supervision: Justin Sayles\nTheme Music: Birocratic\nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
-      country: "USA",
-      collectionViewUrl:
-        "https://itunes.apple.com/us/podcast/dissect/id1143845868?mt=2&uo=4",
-      artworkUrl60:
-        "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/15/7c/ee/157ceee5-28d2-a17d-f516-acf8c15a9618/mza_1670785262316099580.jpg/60x60bb.jpg",
-      contentAdvisoryRating: "Explicit",
-      episodeGuid: "0f4ba1e0-e886-11ee-a895-77e102351de2",
-      genres: [
-        {
-          name: "Music",
-          id: "1310"
-        }
-      ],
-      kind: "podcast-episode",
-      wrapperType: "podcastEpisode"
+        "The JBP kicks off the latest episode reacting to Wale’s tweet about Melyssa Ford (26:56) before turning to new music including the buzz surrounding Taylor Swift’s album (42:02) as well as Drake’s ‘Push Ups’ hitting DSPs (44:33). The room then debates whether Drake moves OVO Fest with Future & Metro due to perform in Toronto the same weekend (53:35), more music from Nicki Minaj & Lucky Daye (1:26:35), and Miami is hosting a nude cruise come 2025 (1:49:21). Also, Shyne speaks on ‘99 club shooting in recent interview (2:02:18), Jontay Porter has been banned for life from the NBA (2:33:33), Nike inks Caitlin Clark to endorsement deal (2:43:03), and much more! \n Become a Patron of The Joe Budden Podcast for additional bonus episodes and visual content for all things JBP! Join our Patreon here: www.patreon.com/joebudden\n Sleeper Picks: \n Joe | Inayah - “Won’t Let Me”\n Ice | Tory Lanez - “When It’s Dark”\n Parks | Nas & DJ Premier - “Define My Name”\n Ish | MaKenzie - “Velvet”\n Melyssa | Äyanna - “Girlfriend”\n Emanny | WANMOR - “Alone With You”",
+      trackId: 1000653044367
     }
   ]
 } as unknown as ResponseItunesDetailPodcastProps;
