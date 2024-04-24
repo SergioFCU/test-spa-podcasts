@@ -8,10 +8,15 @@ import {
 import { ResponseItunesPodcastsProps } from "@/common/types";
 import { parseItunesPodcastsData } from "@/common/utils";
 
-export const getPodcasts = async () => {
+export const getAllPodcastsAPI = async () => {
   const response = await fetch(
     `${ITUNES_URI}us/rss/toppodcasts/limit=${ITUNES_MAX_LIMIT_PODCASTS}/genre=${ITUNES_GENRE}/json`
   );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch podcasts");
+  }
+
   const data: ResponseItunesPodcastsProps = await response.json();
   const parsedData = parseItunesPodcastsData(data);
 

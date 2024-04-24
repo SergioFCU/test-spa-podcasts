@@ -11,12 +11,12 @@ describe("useLocalStorage", () => {
   it("should save and load data from local storage", () => {
     const { result } = renderHook(() => useLocalStorage());
 
-    result.current.handleSaveToLocalStorage(
+    result.current.saveToLocalStorage(
       "testKey",
       parsedResponseItunesPodcastsMock
     );
 
-    const loadedData = result.current.handleLoadFromLocalStorage("testKey");
+    const loadedData = result.current.loadFromLocalStorage("testKey");
     expect(loadedData).toEqual({
       data: parsedResponseItunesPodcastsMock,
       timestamp: expect.any(String)
@@ -26,8 +26,7 @@ describe("useLocalStorage", () => {
   it("should return false if data is not found in local storage", () => {
     const { result } = renderHook(() => useLocalStorage());
 
-    const loadedData =
-      result.current.handleLoadFromLocalStorage("nonExistentKey");
+    const loadedData = result.current.loadFromLocalStorage("nonExistentKey");
     expect(loadedData).toBe(false);
   });
 
@@ -39,5 +38,13 @@ describe("useLocalStorage", () => {
 
     expect(result.current.isWithin24Hours(currentDate)).toBe(true);
     expect(result.current.isWithin24Hours(pastDate)).toBe(false);
+  });
+
+  it("should call getValidLocalStorageData and return false if data is not fount in local storage", () => {
+    const { result } = renderHook(() => useLocalStorage());
+
+    const loadedData =
+      result.current.getValidLocalStorageData("nonExistentKey");
+    expect(loadedData).toBeUndefined;
   });
 });

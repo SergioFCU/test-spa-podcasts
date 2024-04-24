@@ -7,12 +7,11 @@ import { useRouter } from "next/navigation";
 
 export const PodcastHome = () => {
   const router = useRouter();
-  const { podcastsCount, onFilterPodcasts, filteredPodcasts } =
-    usePodcastHome();
+  const { podcasts, onFilterPodcasts, filteredPodcasts } = usePodcastHome();
 
   return (
     <div className="w-full h-full flex flex-col">
-      <CustomHeaderPodcast isShow={!podcastsCount}>
+      <CustomHeaderPodcast isShow={podcasts && !podcasts.length}>
         <div className="flex justify-end items-center mb-12 gap-3">
           <div className="w-fit h-fit flex items-center rounded-lg p-1 font-semibold text-white bg-sky-700">
             {filteredPodcasts.length}
@@ -24,7 +23,7 @@ export const PodcastHome = () => {
             onChange={onFilterPodcasts}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-5">
           {filteredPodcasts.map((podcast) => (
             <CustomCardCoverPodcast
               key={podcast.id}
