@@ -1,27 +1,31 @@
-import { useCallback, useEffect } from "react";
-
-import { useContextPodcasts } from "@/contexts/context-podcasts";
-import { usePodcastDetails } from "./usePodcastDetails";
+import { useCallback, useEffect, useState } from "react";
 
 import { IndexedResultsPodcastDetailsProps } from "@/common/types";
+import { usePodcastDetails } from "@/hooks/usePodcastDetails";
 
 export const usePodcastEpisode = (podcastId: string, episodeId: number) => {
   const { podcastDetails } = usePodcastDetails(podcastId);
-  const { podcastEpisode, setPodcastEpisode } = useContextPodcasts();
 
-  const findPodcastEpisode = useCallback(() => {
-    const { results } = podcastDetails;
+  const [podcastEpisode, setPodcastEpisode] =
+    useState<IndexedResultsPodcastDetailsProps>(
+      {} as IndexedResultsPodcastDetailsProps
+    );
 
-    const foundPodcastEpisode = results.find(
-      (elem) => String(elem.trackId) === String(episodeId)
-    ) as IndexedResultsPodcastDetailsProps;
+  const getPodcastEpisode = useCallback(() => {
+    if (Object.keys(podcastDetails).length) {
+      const { results } = podcastDetails;
 
-    setPodcastEpisode(foundPodcastEpisode);
+      const foundPodcastEpisode = results.find(
+        (elem) => String(elem.trackId) === String(episodeId)
+      ) as IndexedResultsPodcastDetailsProps;
+
+      setPodcastEpisode(foundPodcastEpisode);
+    }
   }, [podcastDetails, episodeId, setPodcastEpisode]);
 
   useEffect(() => {
-    findPodcastEpisode();
-  }, [findPodcastEpisode]);
+    getPodcastEpisode();
+  }, [getPodcastEpisode]);
 
   return {
     podcastDetails,

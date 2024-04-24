@@ -1,12 +1,12 @@
 import { renderHook, waitFor } from "@testing-library/react";
 
-import { getPodcasts } from "@/app/actions";
+import { getAllPodcastsAPI } from "@/app/actions";
 import { parsedResponseItunesPodcastsMock } from "@/common/mocks";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { usePodcastHome } from "./usePodcastHome";
 
 jest.mock("../app/actions", () => ({
-  getPodcasts: jest.fn()
+  getAllPodcastsAPI: jest.fn()
 }));
 
 jest.mock("./useLocalStorage", () => ({
@@ -35,7 +35,7 @@ describe("usePodcastHome", () => {
 
     const { result } = renderHook(() => usePodcastHome());
 
-    expect(getPodcasts).not.toHaveBeenCalled();
+    expect(getAllPodcastsAPI).not.toHaveBeenCalled();
 
     await waitFor(() => {
       expect(result.current.podcasts).toEqual(parsedResponseItunesPodcastsMock);
@@ -46,13 +46,13 @@ describe("usePodcastHome", () => {
   });
 
   it("should fetch podcasts from API", async () => {
-    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+    (getAllPodcastsAPI as jest.Mock).mockResolvedValueOnce(
       parsedResponseItunesPodcastsMock
     );
 
     const { result } = renderHook(() => usePodcastHome());
 
-    expect(getPodcasts).toHaveBeenCalled();
+    expect(getAllPodcastsAPI).toHaveBeenCalled();
 
     await waitFor(() => {
       expect(result.current.podcasts).toEqual(parsedResponseItunesPodcastsMock);
@@ -63,7 +63,7 @@ describe("usePodcastHome", () => {
   });
 
   it("should fetch podcasts from API with error", async () => {
-    (getPodcasts as jest.Mock).mockRejectedValueOnce(new Error("Error"));
+    (getAllPodcastsAPI as jest.Mock).mockRejectedValueOnce(new Error("Error"));
 
     const { result } = renderHook(() => usePodcastHome());
 
@@ -74,7 +74,7 @@ describe("usePodcastHome", () => {
   });
 
   it("should not filter whith empty text", async () => {
-    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+    (getAllPodcastsAPI as jest.Mock).mockResolvedValueOnce(
       parsedResponseItunesPodcastsMock
     );
 
@@ -92,7 +92,7 @@ describe("usePodcastHome", () => {
   });
 
   it("should filter podcasts with text", async () => {
-    (getPodcasts as jest.Mock).mockResolvedValueOnce(
+    (getAllPodcastsAPI as jest.Mock).mockResolvedValueOnce(
       parsedResponseItunesPodcastsMock
     );
 
@@ -109,7 +109,9 @@ describe("usePodcastHome", () => {
           image:
             "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
           author: "The Joe Budden Network",
-          id: "1535809341"
+          id: "1535809341",
+          summary:
+            "Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends."
         }
       ]);
     });

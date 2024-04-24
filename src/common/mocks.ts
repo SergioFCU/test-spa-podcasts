@@ -308,21 +308,27 @@ export const parsedResponseItunesPodcastsMock = [
     image:
       "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
     author: "The Joe Budden Network",
-    id: "1535809341"
+    id: "1535809341",
+    summary:
+      "Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends."
   },
   {
     title: "THE MORNING SHIFT",
     image:
       "https://is1-ssl.mzstatic.com/image/thumb/Podcasts122/v4/fb/8d/0b/fb8d0b0a-f6e0-038c-08cb-8885d7f7fb1e/mza_14964633475917453431.jpg/170x170bb.png",
     author: "YOUKNOW MEDIA",
-    id: "1676884110"
+    id: "1676884110",
+    summary:
+      "Join Brook, Jordan & Matua Marc every week day from 6AM for a yarn all things culture, entertainment, sports, funny and thought provoking.\n\nIf you're keen to sponsor the show or any enquiries email info@themorningshift.com\n\nPowered by YOUKNOW MEDIA"
   },
   {
     title: "New Rory & MAL",
     image:
       "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/31/80/56/3180562e-ac0b-f10e-7120-641b1c26e0f8/mza_10135383815267163613.jpg/170x170bb.png",
     author: 'Rory Farrell & Jamil "Mal" Clay & Studio71',
-    id: "1572182022"
+    id: "1572182022",
+    summary:
+      "New stories, new laughs, new random hot takes that no one asked for... New Rory & Mal\n\nFor advertising opportunities please email PodcastPartnerships@Studio71us.com   \nWe want to make the podcast even better, help us learn how we can: https://bit.ly/2EcYbu4  \nPrivacy Policy: https://www.studio71.com/terms-and-conditions-use/#Privacy%20Policy"
   }
 ] as SerializedItunesPodcastsProps[];
 
@@ -330,12 +336,12 @@ export const responseItunesPodcastDetailsMock = {
   id: "1535809341",
   coverImage:
     "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/600x600bb.jpg",
-  resultCount: 51,
+  resultCount: 2,
   results: [
     {
       title: "The Joe Budden Podcast",
       duration: "00:12",
-      date: "04/20/2024",
+      date: "20/04/2024",
       episodeUrl: "",
       description: "",
       trackId: 1535809341
@@ -346,9 +352,9 @@ export const responseItunesPodcastDetailsMock = {
       date: "04/20/2024",
       episodeUrl:
         "https://verifi.podscribe.com/rss/p/traffic.libsyn.com/secure/jbpod/Joe_Budden_Podcast_718.mp3?dest-id=2422538",
-      description:
-        "The JBP kicks off the latest episode reacting to Wale’s tweet about Melyssa Ford (26:56) before turning to new music including the buzz surrounding Taylor Swift’s album (42:02) as well as Drake’s ‘Push Ups’ hitting DSPs (44:33). The room then debates whether Drake moves OVO Fest with Future & Metro due to perform in Toronto the same weekend (53:35), more music from Nicki Minaj & Lucky Daye (1:26:35), and Miami is hosting a nude cruise come 2025 (1:49:21). Also, Shyne speaks on ‘99 club shooting in recent interview (2:02:18), Jontay Porter has been banned for life from the NBA (2:33:33), Nike inks Caitlin Clark to endorsement deal (2:43:03), and much more! \n Become a Patron of The Joe Budden Podcast for additional bonus episodes and visual content for all things JBP! Join our Patreon here: www.patreon.com/joebudden\n Sleeper Picks: \n Joe | Inayah - “Won’t Let Me”\n Ice | Tory Lanez - “When It’s Dark”\n Parks | Nas & DJ Premier - “Define My Name”\n Ish | MaKenzie - “Velvet”\n Melyssa | Äyanna - “Girlfriend”\n Emanny | WANMOR - “Alone With You”",
-      trackId: 1000653044367
+      description: "description",
+      trackId: 1000653044367,
+      trackName: "Episode 718 | 'The PAWG Whisperer'"
     }
   ]
 } as unknown as ResponseItunesDetailPodcastProps;

@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
-import { getPodcasts } from "@/app/actions";
+import { getAllPodcastsAPI } from "@/app/actions";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 import { LOCALSTORAGE_PODCASTS_KEY } from "@/common/consts";
@@ -22,12 +22,12 @@ export const usePodcastHome = () => {
     if (hasDataLocalStorage) {
       return hasDataLocalStorage;
     } else {
-      const response = await getPodcasts();
+      const response = await getAllPodcastsAPI();
       saveToLocalStorage(LOCALSTORAGE_PODCASTS_KEY, response);
 
       return response;
     }
-  }, [getPodcasts, saveToLocalStorage, getValidLocalStorageData]);
+  }, [getAllPodcastsAPI, saveToLocalStorage, getValidLocalStorageData]);
 
   const fetchAllPodcasts = useCallback(async () => {
     try {
