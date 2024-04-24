@@ -3,7 +3,8 @@
 This project uses Next.js for building a modern web application. Below are the scripts available in the `package.json` file to assist with development and deployment of the application.
 
 ## Scripts
-
+`node version >= 18.0.0` | `npm install`
+- 
 - **dev**: Runs the application in development mode.
 
   - Command: `npm run dev`
